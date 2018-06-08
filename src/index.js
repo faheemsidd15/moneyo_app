@@ -1,15 +1,14 @@
-import React from 'react'
-import { ApolloClient, InMemoryCache } from 'apollo-boost'
-import { ApolloProvider } from 'react-apollo'
-import Routes from './routes'
+import React from "react"
+import ApolloClient from "apollo-boost"
+import { ApolloProvider } from "react-apollo"
+import Routes from "./routes"
 
 const client = new ApolloClient({
-  uri: 'https://localhost:4000',
-  cache: new InMemoryCache(),
+	uri: "https://localhost:4000"
 })
 
 export default () => (
-  <ApolloProvider client={client}>
-    <Routes />
-  </ApolloProvider>
+	<ApolloProvider client={client}>
+		<Routes />
+	</ApolloProvider>
 )

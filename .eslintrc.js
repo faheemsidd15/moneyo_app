@@ -1,11 +1,21 @@
 module.exports = {
-  extends: 'airbnb',
-  parser: 'babel-eslint',
-  rules: {
-    'react/jsx-filename-extention': false,
-    'linebreak-style': 0,
-    'react/prop-types': 0,
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    semi: ['error', 'never'],
-  },
+	env: {
+		browser: true,
+		es6: true
+	},
+	extends: "eslint:recommended",
+	parserOptions: {
+		ecmaFeatures: {
+			experimentalObjectRestSpread: true,
+			jsx: true
+		},
+		sourceType: "module"
+	},
+	plugins: ["react"],
+	rules: {
+		indent: ["error", "tab"],
+		"linebreak-style": ["error", "unix"],
+		quotes: ["error", "double"],
+		semi: ["error", "never"]
+	}
 }
