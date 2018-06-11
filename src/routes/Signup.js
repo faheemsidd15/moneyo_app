@@ -1,15 +1,13 @@
 import React, { Component } from "react"
 import { View, StyleSheet } from "react-native"
-import { Button, FormInput, Header } from "react-native-elements"
-
-import { Icon } from "react-native-vector-icons/FontAwesome"
+import { Button, FormInput, Header, Icon } from "react-native-elements"
 
 const styles = StyleSheet.create({
 	field: {
+		width: "100%",
 		fontSize: 20,
 		padding: 10,
-		borderBottomWidth: 1,
-		borderBottomColor: "red"
+		borderBottomWidth: 1
 	}
 })
 
@@ -41,7 +39,10 @@ export default class Signup extends Component {
 
 		return (
 			<View style={{ width: "100%", height: "100%" }}>
-				<Header centerComponent={{ text: "Money-O", style: { color: "white", fontSize: 20 } }} backgroundColor="red" />
+				<Header
+					centerComponent={{ text: "Money-O", style: { color: "white", fontSize: 20 } }}
+					backgroundColor="green"
+				/>
 				<View
 					style={{
 						flex: 1,
@@ -56,18 +57,19 @@ export default class Signup extends Component {
 							onChangeText={text => this.onChangeText("name", text)}
 							value={name}
 							placeholder="name"
-							style={styles.field}
+							inputStyle={styles.field}
 						/>
+
 						<FormInput
 							onChangeText={text => this.onChangeText("email", text)}
 							value={email}
-							style={styles.field}
+							inputStyle={styles.field}
 							placeholder="email"
 						/>
 						<FormInput
 							onChangeText={text => this.onChangeText("password", text)}
 							value={password}
-							style={styles.field}
+							inputStyle={styles.field}
 							placeholder="password"
 							secureTextEntry
 						/>
