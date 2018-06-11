@@ -1,5 +1,4 @@
 import React from "react"
-
 import { NativeRouter, Route, Switch } from "react-router-native"
 
 import Signup from "./Signup"
