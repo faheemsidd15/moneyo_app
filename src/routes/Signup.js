@@ -1,12 +1,13 @@
 import React, { Component } from "react"
-import { View, StyleSheet } from "react-native"
-import { Button, FormInput, Header, Icon } from "react-native-elements"
+import { View, StyleSheet, Image } from "react-native"
+import { Button, Card, Tile, FormInput, Header, Icon } from "react-native-elements"
+import image from "../assets/images/photo.png"
 
 const styles = StyleSheet.create({
 	field: {
 		width: "100%",
 		fontSize: 20,
-		padding: 10,
+		//padding: 10,
 		borderBottomWidth: 1
 	}
 })
@@ -21,6 +22,7 @@ export default class Signup extends Component {
 		errors: {},
 		isSubmitting: {}
 	}
+
 	onChangeText = (key, value) => {
 		this.setState(state => ({
 			values: {
@@ -43,6 +45,15 @@ export default class Signup extends Component {
 					centerComponent={{ text: "Money-O", style: { color: "white", fontSize: 20 } }}
 					backgroundColor="green"
 				/>
+				<View>
+					<Tile
+						imageSrc={require("../assets/images/photo.png")}
+						title="Sign up"
+						featured
+						titleStyle={{ fontSize: 50, color: "white" }}
+						height={200}
+					/>
+				</View>
 				<View
 					style={{
 						flex: 1,
@@ -73,7 +84,20 @@ export default class Signup extends Component {
 							placeholder="password"
 							secureTextEntry
 						/>
-						<Button title="Create Account" onPress={this.submit} />
+						<View
+							style={{
+								width: "100%",
+								paddingTop: 30
+							}}
+						>
+							<Button title="Create Account" onPress={this.submit} rounded={true} backgroundColor="green" />
+							<Button
+								title="Already have an account?"
+								onPress={this.submit}
+								backgroundColor="transparent"
+								color="blue"
+							/>
+						</View>
 					</View>
 				</View>
 			</View>
