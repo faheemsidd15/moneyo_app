@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, StyleSheet, Image } from "react-native"
+import { View, StyleSheet, KeyboardAvoidingView } from "react-native"
 import { Button, Card, Tile, FormInput, Header, Icon } from "react-native-elements"
 import image from "../assets/images/photo.png"
 
@@ -40,7 +40,7 @@ export default class Signup extends Component {
 		} = this.state
 
 		return (
-			<View style={{ width: "100%", height: "100%" }}>
+			<KeyboardAvoidingView style={{ width: "100%", height: "100%" }} behavior="padding">
 				<Header
 					centerComponent={{ text: "Money-O", style: { color: "white", fontSize: 20 } }}
 					backgroundColor="green"
@@ -51,7 +51,7 @@ export default class Signup extends Component {
 						title="Sign up"
 						featured
 						titleStyle={{ fontSize: 50, color: "white" }}
-						height={200}
+						height={150}
 					/>
 				</View>
 				<View
@@ -100,7 +100,7 @@ export default class Signup extends Component {
 						</View>
 					</View>
 				</View>
-			</View>
+			</KeyboardAvoidingView>
 		)
 	}
 }
