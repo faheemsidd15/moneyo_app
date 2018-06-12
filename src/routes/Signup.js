@@ -5,10 +5,16 @@ import image from "../assets/images/photo.png"
 
 const styles = StyleSheet.create({
 	field: {
-		width: "100%",
+		width: 200,
 		fontSize: 20,
 		//padding: 10,
+		color: "black",
 		borderBottomWidth: 1
+	},
+	flex: {
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "center"
 	}
 })
 
@@ -51,7 +57,7 @@ export default class Signup extends Component {
 						title="Sign up"
 						featured
 						titleStyle={{ fontSize: 50, color: "white" }}
-						height={150}
+						height={160}
 					/>
 				</View>
 				<View
@@ -60,30 +66,42 @@ export default class Signup extends Component {
 						display: "flex",
 						justifyContent: "center",
 						alignItems: "center",
-						backgroundColor: "rgb(238, 238, 238)"
+						backgroundColor: "rgb(205, 205, 205)"
 					}}
 				>
-					<View style={{ width: 200 }}>
-						<FormInput
-							onChangeText={text => this.onChangeText("name", text)}
-							value={name}
-							placeholder="name"
-							inputStyle={styles.field}
-						/>
+					<View style={{ width: 300 }}>
+						<View style={styles.flex}>
+							<FormInput
+								onChangeText={text => this.onChangeText("name", text)}
+								value={name}
+								placeholder="name"
+								inputStyle={styles.field}
+								placeholderTextColor="white"
+							/>
+							<Icon name="user" type="font-awesome" color="white" />
+						</View>
 
-						<FormInput
-							onChangeText={text => this.onChangeText("email", text)}
-							value={email}
-							inputStyle={styles.field}
-							placeholder="email"
-						/>
-						<FormInput
-							onChangeText={text => this.onChangeText("password", text)}
-							value={password}
-							inputStyle={styles.field}
-							placeholder="password"
-							secureTextEntry
-						/>
+						<View style={styles.flex}>
+							<FormInput
+								onChangeText={text => this.onChangeText("email", text)}
+								value={email}
+								inputStyle={styles.field}
+								placeholder="email"
+								placeholderTextColor="white"
+							/>
+							<Icon name="envelope" type="font-awesome" color="white" />
+						</View>
+						<View style={styles.flex}>
+							<FormInput
+								onChangeText={text => this.onChangeText("password", text)}
+								value={password}
+								inputStyle={styles.field}
+								placeholder="password"
+								placeholderTextColor="white"
+								secureTextEntry
+							/>
+							<Icon name="lock" type="font-awesome" color="white" />
+						</View>
 						<View
 							style={{
 								width: "100%",
