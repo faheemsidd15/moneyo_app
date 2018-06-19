@@ -1,13 +1,14 @@
 import React, { Component } from "react"
 import { View, StyleSheet, KeyboardAvoidingView } from "react-native"
 import { Button, Card, Tile, FormInput, Header, Icon } from "react-native-elements"
-import image from "../assets/images/photo.png"
+
+import { graphql } from "react-apollo"
+import gql from "graphql-tag"
 
 const styles = StyleSheet.create({
 	field: {
 		width: 200,
 		fontSize: 20,
-		//padding: 10,
 		color: "black",
 		borderBottomWidth: 1
 	},
@@ -17,8 +18,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center"
 	}
 })
-
-export default class Signup extends Component {
+class Signup extends Component {
 	state = {
 		values: {
 			name: "",
@@ -37,7 +37,24 @@ export default class Signup extends Component {
 			}
 		}))
 	}
-	submit = () => {}
+	submit = async () => {
+		if (this.state.isSubmitting) {
+			return
+		}
+		this.setState({
+			isSubmitting: true
+		})
+		let response
+		try {
+			response = await this.props.mutate({
+				variables: this.state.values
+			})
+		} catch (err) {
+			console.log(err)
+		}
+		console.log(response)
+		this.setState({ isSubmitting: false })
+	}
 
 	/* TODO Change the font for MONEYO */
 	render() {
@@ -109,12 +126,7 @@ export default class Signup extends Component {
 							}}
 						>
 							<Button title="Create Account" onPress={this.submit} rounded={true} backgroundColor="green" />
-							<Button
-								title="Already have an account?"
-								onPress={this.submit}
-								backgroundColor="transparent"
-								color="blue"
-							/>
+							<Button title="Already have an account?" backgroundColor="transparent" color="blue" />
 						</View>
 					</View>
 				</View>
@@ -122,3 +134,13 @@ export default class Signup extends Component {
 		)
 	}
 }
+
+const signUpMutation = gql`
+	mutation($name: String!, $email: String!, $password: String!) {
+		signup(name: $name, email: $email, password: $password) {
+			token
+		}
+	}
+`
+
+export default graphql(signUpMutation)(Signup)
