@@ -4,7 +4,7 @@ import { ApolloProvider } from "react-apollo"
 import Routes from "./routes"
 
 const client = new ApolloClient({
-	uri: "https://localhost:4000"
+	uri: "http://localhost:4000/"
 })
 
 export default () => (

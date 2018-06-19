@@ -38,9 +38,6 @@ class Signup extends Component {
 		}))
 	}
 	submit = async () => {
-		if (this.state.isSubmitting) {
-			return
-		}
 		this.setState({
 			isSubmitting: true
 		})
