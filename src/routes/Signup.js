@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, StyleSheet, KeyboardAvoidingView } from "react-native"
+import { AsyncStorage, Text, View, StyleSheet, KeyboardAvoidingView } from "react-native"
 import { Button, Card, Tile, FormInput, Header, Icon } from "react-native-elements"
 
 import { graphql } from "react-apollo"
@@ -18,16 +18,19 @@ const styles = StyleSheet.create({
 		justifyContent: "center"
 	}
 })
+
+const defaultState = {
+	values: {
+		name: "",
+		email: "",
+		password: ""
+	},
+	errors: {},
+	isSubmitting: false
+}
+
 class Signup extends Component {
-	state = {
-		values: {
-			name: "",
-			email: "",
-			password: ""
-		},
-		errors: {},
-		isSubmitting: {}
-	}
+	state = defaultState
 
 	onChangeText = (key, value) => {
 		this.setState(state => ({
@@ -38,6 +41,9 @@ class Signup extends Component {
 		}))
 	}
 	submit = async () => {
+		if (this.state.isSubmitting) {
+			return
+		}
 		this.setState({
 			isSubmitting: true
 		})
@@ -47,15 +53,27 @@ class Signup extends Component {
 				variables: this.state.values
 			})
 		} catch (err) {
-			console.log(err)
+			this.setState({
+				errors: {
+					email: "This email is already taken"
+				},
+				isSubmitting: false
+			})
+			return
 		}
 		console.log(response)
-		this.setState({ isSubmitting: false })
+		await AsyncStorage.setItem("@moneyo/token", response.data.signup.token)
+		this.setState(defaultState)
+	}
+
+	goToLoginPage = () => {
+		this.props.history.push("/login")
 	}
 
 	/* TODO Change the font for MONEYO */
 	render() {
 		const {
+			errors,
 			values: { name, email, password }
 		} = this.state
 
@@ -94,7 +112,8 @@ class Signup extends Component {
 							/>
 							<Icon name="user" type="font-awesome" color="white" />
 						</View>
-
+						/* Change the padding of the error message */
+						{errors.email && <Text style={{ textAlign: "center", color: "red" }}>{errors.email}</Text>}
 						<View style={styles.flex}>
 							<FormInput
 								onChangeText={text => this.onChangeText("email", text)}
@@ -102,6 +121,7 @@ class Signup extends Component {
 								inputStyle={styles.field}
 								placeholder="email"
 								placeholderTextColor="white"
+								autoCapitalize="none"
 							/>
 							<Icon name="envelope" type="font-awesome" color="white" />
 						</View>
@@ -112,6 +132,7 @@ class Signup extends Component {
 								inputStyle={styles.field}
 								placeholder="password"
 								placeholderTextColor="white"
+								autoCapitalize="none"
 								secureTextEntry
 							/>
 							<Icon name="lock" type="font-awesome" color="white" />
@@ -123,7 +144,12 @@ class Signup extends Component {
 							}}
 						>
 							<Button title="Create Account" onPress={this.submit} rounded={true} backgroundColor="green" />
-							<Button title="Already have an account?" backgroundColor="transparent" color="blue" />
+							<Button
+								title="Already have an account?"
+								backgroundColor="transparent"
+								color="blue"
+								onPress={this.goToLoginPage}
+							/>
 						</View>
 					</View>
 				</View>
