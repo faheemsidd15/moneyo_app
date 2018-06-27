@@ -1,17 +1,13 @@
 import React, { Component } from "react"
 import { AsyncStorage, Text, View, StyleSheet, KeyboardAvoidingView } from "react-native"
-import { Button, Card, Tile, FormInput, Header, Icon } from "react-native-elements"
+import { Button, Card, Tile, Header, Icon } from "react-native-elements"
 
 import { graphql } from "react-apollo"
 import gql from "graphql-tag"
 
+import TextField from "../components/TextField"
+
 const styles = StyleSheet.create({
-	field: {
-		width: 200,
-		fontSize: 20,
-		color: "black",
-		borderBottomWidth: 1
-	},
 	flex: {
 		display: "flex",
 		flexDirection: "row",
@@ -27,28 +23,6 @@ const defaultState = {
 	},
 	errors: {},
 	isSubmitting: false
-}
-
-class TextField extends React.PureComponent {
-	onChangeText = text => {
-		const { onChangeText, name } = this.props
-
-		onChangeText(name, text)
-	}
-	render() {
-		const { value, secureTextEntry, name } = this.props
-		return (
-			<FormInput
-				onChangeText={this.onChangeText}
-				value={value}
-				placeholder={name}
-				inputStyle={styles.field}
-				placeholderTextColor="white"
-				autoCapitalize="none"
-				secureTextEntry={!!secureTextEntry}
-			/>
-		)
-	}
 }
 
 class Signup extends Component {
@@ -85,12 +59,12 @@ class Signup extends Component {
 		}
 		console.log(response)
 		await AsyncStorage.setItem("@moneyo/token", response.data.signup.token)
-		this.setState(defaultState)
+		//this.setState(defaultState)
 		this.props.history.push("/summary")
 	}
 
 	goToLoginPage = () => {
-		this.props.history.push("/login")
+		this.props.history.push("/")
 	}
 
 	/* TODO Change the font for MONEYO */
