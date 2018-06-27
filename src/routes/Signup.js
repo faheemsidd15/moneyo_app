@@ -29,6 +29,28 @@ const defaultState = {
 	isSubmitting: false
 }
 
+class TextField extends React.PureComponent {
+	onChangeText = text => {
+		const { onChangeText, name } = this.props
+
+		onChangeText(name, text)
+	}
+	render() {
+		const { value, secureTextEntry, name } = this.props
+		return (
+			<FormInput
+				onChangeText={this.onChangeText}
+				value={value}
+				placeholder={name}
+				inputStyle={styles.field}
+				placeholderTextColor="white"
+				autoCapitalize="none"
+				secureTextEntry={!!secureTextEntry}
+			/>
+		)
+	}
+}
+
 class Signup extends Component {
 	state = defaultState
 
@@ -64,6 +86,7 @@ class Signup extends Component {
 		console.log(response)
 		await AsyncStorage.setItem("@moneyo/token", response.data.signup.token)
 		this.setState(defaultState)
+		this.props.history.push("/summary")
 	}
 
 	goToLoginPage = () => {
@@ -103,38 +126,17 @@ class Signup extends Component {
 				>
 					<View style={{ width: 300 }}>
 						<View style={styles.flex}>
-							<FormInput
-								onChangeText={text => this.onChangeText("name", text)}
-								value={name}
-								placeholder="name"
-								inputStyle={styles.field}
-								placeholderTextColor="white"
-							/>
+							<TextField value={name} name="name" onChangeText={this.onChangeText} />
 							<Icon name="user" type="font-awesome" color="white" />
 						</View>
 						/* Change the padding of the error message */
 						{errors.email && <Text style={{ textAlign: "center", color: "red" }}>{errors.email}</Text>}
 						<View style={styles.flex}>
-							<FormInput
-								onChangeText={text => this.onChangeText("email", text)}
-								value={email}
-								inputStyle={styles.field}
-								placeholder="email"
-								placeholderTextColor="white"
-								autoCapitalize="none"
-							/>
+							<TextField value={email} name="email" onChangeText={this.onChangeText} />
 							<Icon name="envelope" type="font-awesome" color="white" />
 						</View>
 						<View style={styles.flex}>
-							<FormInput
-								onChangeText={text => this.onChangeText("password", text)}
-								value={password}
-								inputStyle={styles.field}
-								placeholder="password"
-								placeholderTextColor="white"
-								autoCapitalize="none"
-								secureTextEntry
-							/>
+							<TextField value={password} name="password" onChangeText={this.onChangeText} secureTextEntry />
 							<Icon name="lock" type="font-awesome" color="white" />
 						</View>
 						<View

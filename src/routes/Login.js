@@ -1,8 +1,8 @@
 import React from "react"
-import { Container } from "native-base"
+import { View } from "react-native"
 
 export default class Signup extends React.Component {
 	render() {
-		return <Container />
+		return <View>hello</View>
 	}
 }
