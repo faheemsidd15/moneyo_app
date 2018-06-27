@@ -42,24 +42,26 @@ class Login extends Component {
 		this.setState({
 			isSubmitting: true
 		})
-		let response
-		try {
-			response = await this.props.mutate({
-				variables: this.state.values
-			})
-		} catch (err) {
+
+		const response = await this.props.mutate({
+			variables: this.state.values
+		})
+
+		const { payload, error } = response.data.login
+
+		if (payload) {
+			console.log(payload.token)
+			await AsyncStorage.setItem("@moneyo/token", payload.token)
+			//this.setState(defaultState)
+			this.props.history.push("/summary")
+		} else {
 			this.setState({
 				errors: {
-					email: "This email is already taken"
+					[error.field]: error.msg
 				},
 				isSubmitting: false
 			})
-			return
 		}
-		console.log(response)
-		await AsyncStorage.setItem("@moneyo/token", response.data.login.token)
-		//this.setState(defaultState)
-		this.props.history.push("/summary")
 	}
 
 	goToSignupPage = () => {
@@ -115,7 +117,7 @@ class Login extends Component {
 								paddingTop: 30
 							}}
 						>
-							<Button title="Create Account" onPress={this.submit} rounded={true} backgroundColor="green" />
+							<Button title="Login" onPress={this.submit} rounded={true} backgroundColor="green" />
 							<Button
 								title="Don't have an account?"
 								backgroundColor="transparent"
@@ -133,7 +135,13 @@ class Login extends Component {
 const loginMutation = gql`
 	mutation($email: String!, $password: String!) {
 		login(email: $email, password: $password) {
-			token
+			payload {
+				token
+			}
+			error {
+				field
+				msg
+			}
 		}
 	}
 `
