@@ -6,6 +6,7 @@ import { graphql } from "react-apollo"
 import gql from "graphql-tag"
 
 import TextField from "../components/TextField"
+import { TOKEN_KEY } from "./constants"
 
 const styles = StyleSheet.create({
 	flex: {
@@ -58,13 +59,13 @@ class Signup extends Component {
 			return
 		}
 		console.log(response)
-		await AsyncStorage.setItem("@moneyo/token", response.data.signup.token)
+		await AsyncStorage.setItem(TOKEN_KEY, response.data.signup.token)
 		//this.setState(defaultState)
 		this.props.history.push("/summary")
 	}
 
 	goToLoginPage = () => {
-		this.props.history.push("/")
+		this.props.history.push("/login")
 	}
 
 	/* TODO Change the font for MONEYO */
