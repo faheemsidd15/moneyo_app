@@ -3,7 +3,7 @@ import { NativeRouter, Route, Switch } from "react-router-native"
 
 import Signup from "./Signup"
 import Login from "./Login"
-import Summary from "./Summary"
+import App from "./App"
 import CheckToken from "./CheckToken"
 
 export default () => (
@@ -12,7 +12,7 @@ export default () => (
 			<Route exact path="/" component={CheckToken} />
 			<Route exact path="/signup" component={Signup} />
 			<Route exact path="/login" component={Login} />
-			<Route exact path="/summary" component={Summary} />
+			<Route exact path="/app" component={App} />
 		</Switch>
 	</NativeRouter>
 )

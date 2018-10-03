@@ -1,9 +1,8 @@
 import React from "react"
 import { View, Text, AsyncStorage } from "react-native"
 import { Button, Card, Tile, Header, Icon, List } from "react-native-elements"
-import Settings from "./Settings.js"
 
-export default class Summary extends React.Component {
+export default class Settings extends React.Component {
 	render() {
 		return (
 			<View style={{ backgroundColor: "rgb(238,238,238)", height: "100%" }}>
@@ -14,7 +13,7 @@ export default class Summary extends React.Component {
 				<Card title="Summary">
 					<View>
 						<Text>Hello</Text>
-						<Text>Fucker</Text>
+						<Text>shitbag</Text>
 					</View>
 				</Card>
 			</View>

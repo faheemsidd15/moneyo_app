@@ -1,11 +1,9 @@
 import React, { Component } from "react"
 import { AsyncStorage, Text, View, StyleSheet, KeyboardAvoidingView } from "react-native"
 import { Button, Card, Tile, Header, Icon } from "react-native-elements"
-
 import { TOKEN_KEY } from "./constants"
 import { graphql } from "react-apollo"
 import gql from "graphql-tag"
-
 import TextField from "../components/TextField"
 
 const styles = StyleSheet.create({
@@ -54,7 +52,7 @@ class Login extends Component {
 			console.log(payload.token)
 			await AsyncStorage.setItem(TOKEN_KEY, payload.token)
 			//this.setState(defaultState)
-			this.props.history.push("/summary")
+			this.props.history.push("/app")
 		} else {
 			this.setState({
 				errors: {

@@ -61,7 +61,7 @@ class Signup extends Component {
 		console.log(response)
 		await AsyncStorage.setItem(TOKEN_KEY, response.data.signup.token)
 		//this.setState(defaultState)
-		this.props.history.push("/summary")
+		this.props.history.push("/app")
 	}
 
 	goToLoginPage = () => {

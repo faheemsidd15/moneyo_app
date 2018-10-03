@@ -27,7 +27,7 @@ class CheckToken extends React.Component {
 		}
 		const { refreshToken } = response.data
 		await AsyncStorage.setItem(TOKEN_KEY, refreshToken)
-		this.props.history.push("/summary")
+		this.props.history.push("/app")
 	}
 	render() {
 		return <Text>loading...</Text>
