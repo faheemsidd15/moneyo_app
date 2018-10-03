@@ -19,7 +19,9 @@ class CheckToken extends React.Component {
 					token
 				}
 			})
+			console.log(response)
 		} catch (err) {
+			console.log(this.props)
 			this.props.history.push("/signup")
 			return
 		}
