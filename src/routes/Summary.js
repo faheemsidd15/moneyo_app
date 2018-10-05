@@ -8,13 +8,14 @@ export default class Summary extends React.Component {
 		return (
 			<View style={{ backgroundColor: "rgb(238,238,238)", height: "100%" }}>
 				<Header
+					leftComponent={<Icon name="menu" onPress={() => this.props.navigation.openDrawer()} color="white" />}
 					centerComponent={{ text: "Money-O", style: { color: "white", fontSize: 20 } }}
 					backgroundColor="green"
 				/>
 				<Card title="Summary">
 					<View>
 						<Text>Hello</Text>
-						<Text>Fucker</Text>
+						<Text>From Summary</Text>
 					</View>
 				</Card>
 			</View>

@@ -12,8 +12,24 @@ class App extends Component {
 	}
 }
 
-const AppDrawer = createDrawerNavigator({
-	Home: Summary,
-	Settings: Settings
-})
+const CustomDrawerComponent = props => (
+	<SafeAreaView style={{ flex: 1 }}>
+		<View style={{ height: 150, backgroundColor: "green" }}>
+			<Text style={{ color: "white" }}>Insert Image or Name Here</Text>
+		</View>
+		<ScrollView>
+			<DrawerItems {...props} />
+		</ScrollView>
+	</SafeAreaView>
+)
+
+const AppDrawer = createDrawerNavigator(
+	{
+		Home: Summary,
+		Settings: Settings
+	},
+	{
+		contentComponent: CustomDrawerComponent
+	}
+)
 export default App
