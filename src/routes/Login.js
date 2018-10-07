@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { AsyncStorage, Text, View, StyleSheet, KeyboardAvoidingView } from "react-native"
 import { Button, Card, Tile, Header, Icon } from "react-native-elements"
-import { TOKEN_KEY } from "./constants"
+import { TOKEN_KEY } from "../constants"
 import { graphql } from "react-apollo"
 import gql from "graphql-tag"
 import TextField from "../components/TextField"
@@ -50,6 +50,7 @@ class Login extends Component {
 
 		if (payload) {
 			console.log(payload.token)
+			console.log(payload)
 			await AsyncStorage.setItem(TOKEN_KEY, payload.token)
 			//this.setState(defaultState)
 			this.props.history.push("/app")

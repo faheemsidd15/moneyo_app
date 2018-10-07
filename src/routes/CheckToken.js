@@ -2,11 +2,11 @@ import React from "react"
 import { Text, AsyncStorage } from "react-native"
 import { graphql } from "react-apollo"
 import gql from "graphql-tag"
-import { TOKEN_KEY } from "./constants"
+import { TOKEN_KEY } from "../constants"
 
 class CheckToken extends React.Component {
 	componentDidMount = async () => {
-		//await AsyncStorage.setItem(TOKEN_KEY, "")
+		//	await AsyncStorage.setItem(TOKEN_KEY, "")
 		const token = await AsyncStorage.getItem(TOKEN_KEY)
 		if (!token) {
 			this.props.history.push("/signup")

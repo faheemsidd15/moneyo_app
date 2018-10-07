@@ -6,7 +6,7 @@ import { graphql } from "react-apollo"
 import gql from "graphql-tag"
 
 import TextField from "../components/TextField"
-import { TOKEN_KEY } from "./constants"
+import { TOKEN_KEY } from "../constants"
 
 const styles = StyleSheet.create({
 	flex: {
