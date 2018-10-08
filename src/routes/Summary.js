@@ -12,10 +12,26 @@ export default class Summary extends React.Component {
 					centerComponent={{ text: "Money-O", style: { color: "white", fontSize: 20 } }}
 					backgroundColor="green"
 				/>
-				<Card title="Summary">
+				<Card title="Summary" containerStyle={{ height: 400 }} titleStyle={{ fontSize: 40 }}>
+					<View
+						style={{
+							display: "flex",
+							flexDirection: "row",
+							justifyContent: "space-between",
+							backgroundColor: "red"
+						}}
+					>
+						<View style={{ width: 100, height: 100, backgroundColor: "green" }}>
+							<Text>One section</Text>
+						</View>
+						<View style={{ width: 100, height: 100, backgroundColor: "purple" }}>
+							<Text>Second Section</Text>
+						</View>
+					</View>
+				</Card>
+				<Card title="Total Ratio">
 					<View>
 						<Text>Hello</Text>
-						<Text>From Summary</Text>
 					</View>
 				</Card>
 			</View>
