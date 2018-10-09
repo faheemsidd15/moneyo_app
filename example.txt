@@ -1,0 +1,21 @@
+const createRecordMutation = gql`
+mutation CreateRecord(input: CreateRecordInput!) {
+    createRecord(input: $input) {
+        ok,
+        record {
+            id
+        }
+        errors {
+            message
+        }
+    }
+}
+`
+
+<Mutation mutation={createRecordMutation}>
+    {({ createRecord }) => {
+        <Button onClick={() => createRecord({ input: { recordAmount: 25.95, dueDate: "10-18-18" }})}>
+            Create Record
+        </Button>
+    }}
+</Mutation>
