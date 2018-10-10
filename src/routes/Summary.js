@@ -10,11 +10,6 @@ export default class Summary extends React.Component {
 		return (
 			<ScrollView>
 				<View style={{ backgroundColor: "rgb(238,238,238)", height: "100%" }}>
-					{/* <Header
-						leftComponent={<Icon name="menu" onPress={() => this.props.navigation.openDrawer()} color="white" />}
-						centerComponent={{ text: "Money-O", style: { color: "white", fontSize: 20 } }}
-						backgroundColor="green"	
-					/> */}
 					<DefaultHeader showMenu={true} open={this.props.navigation.openDrawer} />
 					<Card title="Summary" containerStyle={{ height: 400 }} titleStyle={{ fontSize: 40 }}>
 						<View
