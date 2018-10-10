@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
 	flex: {
 		display: "flex",
 		flexDirection: "row",
-		justifyContent: "center"
+		justifyContent: "center",
+		paddingTop: 15
 	}
 })
 
