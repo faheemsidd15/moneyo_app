@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { AsyncStorage, Text, View, StyleSheet, KeyboardAvoidingView } from "react-native"
 import { Button, Card, Tile, Header, Icon } from "react-native-elements"
+import { PRIMARY_COLOR, SECONDARY_COLOR } from "../AppTheme"
 
 import { graphql } from "react-apollo"
 import gql from "graphql-tag"
@@ -79,7 +80,7 @@ class Signup extends Component {
 			<KeyboardAvoidingView style={{ width: "100%", height: "100%" }} behavior="padding">
 				<Header
 					centerComponent={{ text: "Money-O", style: { color: "white", fontSize: 20 } }}
-					backgroundColor="green"
+					backgroundColor={PRIMARY_COLOR}
 				/>
 				<View>
 					<Tile
@@ -120,7 +121,7 @@ class Signup extends Component {
 								paddingTop: 30
 							}}
 						>
-							<Button title="Create Account" onPress={this.submit} rounded={true} backgroundColor="green" />
+							<Button title="Create Account" onPress={this.submit} rounded={true} backgroundColor={SECONDARY_COLOR} />
 							<Button
 								title="Already have an account?"
 								backgroundColor="transparent"

@@ -4,6 +4,7 @@ import { Button, Card, Tile, Header, Icon, List } from "react-native-elements"
 import { createDrawerNavigator, DrawerItems } from "react-navigation"
 import gql from "graphql-tag"
 import { Query } from "react-apollo"
+import { PRIMARY_COLOR, SECONDARY_COLOR } from "../AppTheme"
 
 import Settings from "./Settings.js"
 import Summary from "./Summary.js"
@@ -30,7 +31,7 @@ const CustomDrawerComponent = props => (
 			}
 			return (
 				<SafeAreaView style={{ flex: 1 }}>
-					<View style={{ height: 150, backgroundColor: "green" }}>
+					<View style={{ height: 150, backgroundColor: PRIMARY_COLOR }}>
 						<Text style={{ color: "white" }}>{data.me.name}</Text>
 					</View>
 					<ScrollView>

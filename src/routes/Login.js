@@ -5,6 +5,7 @@ import { TOKEN_KEY } from "../constants"
 import { graphql } from "react-apollo"
 import gql from "graphql-tag"
 import TextField from "../components/TextField"
+import { PRIMARY_COLOR, SECONDARY_COLOR } from "../AppTheme"
 
 const styles = StyleSheet.create({
 	flex: {
@@ -79,7 +80,7 @@ class Login extends Component {
 			<KeyboardAvoidingView style={{ width: "100%", height: "100%" }} behavior="padding">
 				<Header
 					centerComponent={{ text: "Money-O", style: { color: "white", fontSize: 20 } }}
-					backgroundColor="green"
+					backgroundColor={PRIMARY_COLOR}
 				/>
 				<View>
 					<Tile
@@ -117,7 +118,7 @@ class Login extends Component {
 								paddingTop: 30
 							}}
 						>
-							<Button title="Login" onPress={this.submit} rounded={true} backgroundColor="green" />
+							<Button title="Login" onPress={this.submit} rounded={true} backgroundColor={SECONDARY_COLOR} />
 							<Button
 								title="Don't have an account?"
 								backgroundColor="transparent"
