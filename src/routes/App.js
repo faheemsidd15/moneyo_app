@@ -4,7 +4,7 @@ import { Button, Card, Tile, Header, Icon, List } from "react-native-elements"
 import { createDrawerNavigator, DrawerItems } from "react-navigation"
 import gql from "graphql-tag"
 import { Query } from "react-apollo"
-import { LIGHT_GREEN } from "../AppTheme"
+import { LIGHT_GREEN, PRIMARY_COLOR, SECONDARY_COLOR } from "../AppTheme"
 
 import Settings from "./Settings.js"
 import Summary from "./Summary.js"
@@ -31,11 +31,11 @@ const CustomDrawerComponent = props => (
 			}
 			return (
 				<SafeAreaView style={{ flex: 1 }}>
-					<View style={{ height: 150, backgroundColor: LIGHT_GREEN }}>
+					<View style={{ height: 150, backgroundColor: SECONDARY_COLOR }}>
 						<Text style={{ color: "white" }}>{data.me.name}</Text>
 					</View>
-					<ScrollView>
-						<DrawerItems {...props} />
+					<ScrollView style={{ backgroundColor: "rgb(51, 56, 81)" }}>
+						<DrawerItems {...props} style={{ color: "white" }} />
 					</ScrollView>
 				</SafeAreaView>
 			)
@@ -49,7 +49,10 @@ const AppDrawer = createDrawerNavigator(
 		Settings: Settings
 	},
 	{
-		contentComponent: CustomDrawerComponent
+		contentComponent: CustomDrawerComponent,
+		contentOptions: {
+			activeTintColor: "white"
+		}
 	}
 )
 export default App

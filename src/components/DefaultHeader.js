@@ -6,7 +6,7 @@ export default class DefaultHeader extends React.PureComponent {
 	render() {
 		return (
 			<Header
-				centerComponent={{ text: "Money-O", style: { color: "white", fontSize: 26 } }}
+				centerComponent={{ text: this.props.title, style: { color: "white", fontSize: 26 } }}
 				backgroundColor={PRIMARY_COLOR}
 				leftComponent={
 					this.props.showMenu === true ? <Icon name="menu" onPress={this.props.open} color="white" /> : null
