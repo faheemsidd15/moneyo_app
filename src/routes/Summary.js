@@ -1,6 +1,7 @@
 import React from "react"
 import { View, Text, AsyncStorage, ScrollView } from "react-native"
 import { Button, Card, Tile, Header, Icon, List } from "react-native-elements"
+import TestGraph from "../components/TestGraph"
 import {
 	PRIMARY_COLOR,
 	SECONDARY_COLOR,
@@ -29,30 +30,30 @@ export default class Summary extends React.Component {
 						borderBottomRadius: 25
 					}}
 				>
-					<Text>HI</Text>
+					<TestGraph />
 				</View>
 				<ScrollView style={{ backgroundColor: BACKGROUND, height: "100%" }}>
 					<Card
 						title="Total Monthly Income"
 						containerStyle={{
 							height: 175,
-							backgroundColor: SECONDARY_COLOR,
+							backgroundColor: CARD_BACKGROUND,
 							borderColor: "transparent",
 							borderRadius: 25
 						}}
-						titleStyle={{ fontSize: 20, color: "white", textAlign: "left" }}
+						titleStyle={{ fontSize: 20, color: LIGHT_GREEN, textAlign: "left" }}
 					>
 						<Text>HI</Text>
 					</Card>
 					<Card
-						title="Total Monthly Income"
+						title="Total Monthly Expenses"
 						containerStyle={{
 							height: 175,
-							backgroundColor: "black",
+							backgroundColor: CARD_BACKGROUND,
 							borderColor: "transparent",
 							borderRadius: 25
 						}}
-						titleStyle={{ fontSize: 20, color: "white", textAlign: "left" }}
+						titleStyle={{ fontSize: 20, color: TERTIARY, textAlign: "left" }}
 					>
 						<Text>HI</Text>
 					</Card>
