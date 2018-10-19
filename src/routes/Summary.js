@@ -34,26 +34,31 @@ export default class Summary extends React.Component {
 				</View>
 				<ScrollView style={{ backgroundColor: BACKGROUND, height: "100%" }}>
 					<Card
-						title="Total Monthly Income"
+						title="Monthly Income"
 						containerStyle={{
 							height: 175,
 							backgroundColor: CARD_BACKGROUND,
 							borderColor: "transparent",
-							borderRadius: 25
+							borderRadius: 25,
+							overflow: "hidden"
 						}}
-						titleStyle={{ fontSize: 20, color: LIGHT_GREEN, textAlign: "left" }}
+						titleStyle={{ fontSize: 20, color: LIGHT_GREEN, textAlign: "center" }}
+						dividerStyle={{ backgroundColor: LIGHT_GREEN }}
+						//wrapperStyle={{ display: "flex", justifyContent: "center", alignItems: "center" }}
 					>
-						<Text>HI</Text>
+						<View style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+							<Text style={{ color: "white", fontSize: 50 }}>$0</Text>
+						</View>
 					</Card>
 					<Card
-						title="Total Monthly Expenses"
+						title="Monthly Expenses"
 						containerStyle={{
 							height: 175,
 							backgroundColor: CARD_BACKGROUND,
 							borderColor: "transparent",
 							borderRadius: 25
 						}}
-						titleStyle={{ fontSize: 20, color: TERTIARY, textAlign: "left" }}
+						titleStyle={{ fontSize: 20, color: TERTIARY, textAlign: "center" }}
 					>
 						<Text>HI</Text>
 					</Card>
