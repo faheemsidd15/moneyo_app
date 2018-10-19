@@ -23,11 +23,8 @@ export default class Summary extends React.Component {
 
 				<View
 					style={{
-						position: "fixed",
 						height: 250,
-						backgroundColor: CARD_BACKGROUND,
-						borderColor: "transparent",
-						borderBottomRadius: 25
+						backgroundColor: CARD_BACKGROUND
 					}}
 				>
 					<TestGraph />
@@ -46,8 +43,10 @@ export default class Summary extends React.Component {
 						dividerStyle={{ backgroundColor: LIGHT_GREEN }}
 						//wrapperStyle={{ display: "flex", justifyContent: "center", alignItems: "center" }}
 					>
-						<View style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+						<View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
+							<Icon type="font-awesome" name="plus" color={LIGHT_GREEN} style={{ paddingRighteft: 50 }} />
 							<Text style={{ color: "white", fontSize: 50 }}>$0</Text>
+							<View />
 						</View>
 					</Card>
 					<Card
@@ -56,9 +55,11 @@ export default class Summary extends React.Component {
 							height: 175,
 							backgroundColor: CARD_BACKGROUND,
 							borderColor: "transparent",
-							borderRadius: 25
+							borderRadius: 25,
+							overflow: "hidden"
 						}}
 						titleStyle={{ fontSize: 20, color: TERTIARY, textAlign: "center" }}
+						dividerStyle={{ backgroundColor: TERTIARY }}
 					>
 						<Text>HI</Text>
 					</Card>
