@@ -19,23 +19,42 @@ export default class Summary extends React.Component {
 		return (
 			<View>
 				<DefaultHeader showMenu={true} open={this.props.navigation.openDrawer} title="Summary" />
+
+				<View
+					style={{
+						position: "fixed",
+						height: 250,
+						backgroundColor: CARD_BACKGROUND,
+						borderColor: "transparent",
+						borderBottomRadius: 25
+					}}
+				>
+					<Text>HI</Text>
+				</View>
 				<ScrollView style={{ backgroundColor: BACKGROUND, height: "100%" }}>
 					<Card
-						title="Total Monthly Savings"
+						title="Total Monthly Income"
 						containerStyle={{
-							height: 400,
-							backgroundColor: CARD_BACKGROUND,
+							height: 175,
+							backgroundColor: SECONDARY_COLOR,
 							borderColor: "transparent",
 							borderRadius: 25
 						}}
-						titleStyle={{ fontSize: 30, color: "white", textAlign: "left" }}
+						titleStyle={{ fontSize: 20, color: "white", textAlign: "left" }}
 					>
 						<Text>HI</Text>
 					</Card>
-					<Card title="Total Ratio">
-						<View>
-							<Text>Hello</Text>
-						</View>
+					<Card
+						title="Total Monthly Income"
+						containerStyle={{
+							height: 175,
+							backgroundColor: "black",
+							borderColor: "transparent",
+							borderRadius: 25
+						}}
+						titleStyle={{ fontSize: 20, color: "white", textAlign: "left" }}
+					>
+						<Text>HI</Text>
 					</Card>
 				</ScrollView>
 			</View>

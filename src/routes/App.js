@@ -45,7 +45,7 @@ const CustomDrawerComponent = props => (
 
 const AppDrawer = createDrawerNavigator(
 	{
-		Home: Summary,
+		Summary: Summary,
 		Settings: Settings
 	},
 	{
