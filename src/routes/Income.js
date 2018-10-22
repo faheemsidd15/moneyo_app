@@ -4,7 +4,14 @@ import { Button, Card, Tile, Header, Icon, List } from "react-native-elements"
 import DefaultHeader from "../components/DefaultHeader"
 import { BACKGROUND } from "../AppTheme"
 
-export default class Income extends React.Component {
+class Income extends React.Component {
+	constructor() {
+		super()
+		this.state = {
+			incomes: []
+		}
+	}
+
 	render() {
 		return (
 			<View>
@@ -21,3 +28,4 @@ export default class Income extends React.Component {
 		)
 	}
 }
+export default Income
