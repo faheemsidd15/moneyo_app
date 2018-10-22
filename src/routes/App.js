@@ -8,6 +8,7 @@ import { LIGHT_GREEN, PRIMARY_COLOR, SECONDARY_COLOR } from "../AppTheme"
 
 import Settings from "./Settings.js"
 import Summary from "./Summary.js"
+import Income from "./Income.js"
 
 const me = gql`
 	{
@@ -46,7 +47,8 @@ const CustomDrawerComponent = props => (
 const AppDrawer = createDrawerNavigator(
 	{
 		Summary: Summary,
-		Settings: Settings
+		Settings: Settings,
+		Income: Income
 	},
 	{
 		contentComponent: CustomDrawerComponent,

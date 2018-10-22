@@ -41,10 +41,27 @@ export default class Summary extends React.Component {
 						}}
 						titleStyle={{ fontSize: 20, color: LIGHT_GREEN, textAlign: "center" }}
 						dividerStyle={{ backgroundColor: LIGHT_GREEN }}
+
 						//wrapperStyle={{ display: "flex", justifyContent: "center", alignItems: "center" }}
 					>
 						<View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
-							<Icon type="font-awesome" name="plus" color={LIGHT_GREEN} style={{ paddingRighteft: 50 }} />
+							<View
+								style={{
+									display: "flex",
+									flexDirection: "column",
+									justifyContent: "center",
+									alignItems: "center"
+								}}
+							>
+								<Icon
+									type="font-awesome"
+									name="plus"
+									color={LIGHT_GREEN}
+									style={{ paddingRighteft: 50 }}
+									onPress={() => this.props.navigation.navigate("Income")}
+								/>
+								<Text style={{ color: LIGHT_GREEN }}>Add Income</Text>
+							</View>
 							<Text style={{ color: "white", fontSize: 50 }}>$0</Text>
 							<View />
 						</View>
@@ -60,8 +77,30 @@ export default class Summary extends React.Component {
 						}}
 						titleStyle={{ fontSize: 20, color: TERTIARY, textAlign: "center" }}
 						dividerStyle={{ backgroundColor: TERTIARY }}
+
+						//wrapperStyle={{ display: "flex", justifyContent: "center", alignItems: "center" }}
 					>
-						<Text>HI</Text>
+						<View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
+							<View
+								style={{
+									display: "flex",
+									flexDirection: "column",
+									justifyContent: "center",
+									alignItems: "center"
+								}}
+							>
+								<Icon
+									type="font-awesome"
+									name="plus"
+									color={TERTIARY}
+									style={{ paddingRighteft: 50 }}
+									onPress={() => this.props.navigation.navigate("Income")}
+								/>
+								<Text style={{ color: TERTIARY }}>Add Income</Text>
+							</View>
+							<Text style={{ color: "white", fontSize: 50 }}>$0</Text>
+							<View />
+						</View>
 					</Card>
 				</ScrollView>
 			</View>
