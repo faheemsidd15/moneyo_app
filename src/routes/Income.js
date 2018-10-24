@@ -2,7 +2,7 @@ import React from "react"
 import { View, Text, AsyncStorage, ScrollView } from "react-native"
 import { Button, Card, Tile, Header, Icon, List } from "react-native-elements"
 import DefaultHeader from "../components/DefaultHeader"
-import { BACKGROUND } from "../AppTheme"
+import { BACKGROUND, LIGHT_GREEN } from "../AppTheme"
 
 class Income extends React.Component {
 	constructor() {
@@ -15,8 +15,9 @@ class Income extends React.Component {
 	render() {
 		return (
 			<View>
-				<DefaultHeader showMenu={true} open={this.props.navigation.openDrawer} title="Settings" />
-				<ScrollView style={{ backgroundColor: BACKGROUND, height: "100%" }}>
+				<DefaultHeader showMenu={true} open={this.props.navigation.openDrawer} title="Income" />
+
+				<ScrollView style={{ backgroundColor: BACKGROUND, height: "75%" }}>
 					<Card title="Summary">
 						<View>
 							<Text>Hello</Text>
@@ -24,6 +25,9 @@ class Income extends React.Component {
 						</View>
 					</Card>
 				</ScrollView>
+				<View style={{ height: 100, width: "100%" }}>
+					<Icon type="font-awesome" name="plus" color={LIGHT_GREEN} />
+				</View>
 			</View>
 		)
 	}
