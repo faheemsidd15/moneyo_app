@@ -1,8 +1,9 @@
 import React from "react"
-import { View, Text, AsyncStorage, ScrollView } from "react-native"
+import { View, Text, AsyncStorage, ScrollView, TouchableHighlight } from "react-native"
 import { Button, Card, Tile, Header, Icon, List } from "react-native-elements"
 import DefaultHeader from "../components/DefaultHeader"
 import { BACKGROUND, LIGHT_GREEN, TERTIARY, QUATERNARY, PRIMARY_COLOR, QUINARY, SECONDARY_COLOR } from "../AppTheme"
+import PopupForm from "../components/PopupForm"
 
 class Income extends React.Component {
 	constructor() {
@@ -15,7 +16,7 @@ class Income extends React.Component {
 
 	setModalVisible = visible => {
 		this.setState({
-			modalVisible: true
+			modalVisible: visible
 		})
 	}
 
@@ -23,7 +24,7 @@ class Income extends React.Component {
 		return (
 			<View style={{ height: "100%" }}>
 				<DefaultHeader showMenu={true} open={this.props.navigation.openDrawer} title="Income" />
-
+				<PopupForm visible={this.state.modalVisible} />
 				<ScrollView style={{ backgroundColor: BACKGROUND }}>
 					<Card title="Summary">
 						<View>
@@ -44,7 +45,16 @@ class Income extends React.Component {
 						alignItems: "center"
 					}}
 				>
-					<Icon type="entypo" name="circle-with-plus" color="white" size={40} />
+					<TouchableHighlight>
+						<Icon
+							onPress={this.setModalVisible}
+							underlayColor={PRIMARY_COLOR}
+							type="entypo"
+							name="circle-with-plus"
+							color="white"
+							size={40}
+						/>
+					</TouchableHighlight>
 					<Text style={{ textAlign: "center", color: "white" }}>Add Income</Text>
 				</View>
 			</View>

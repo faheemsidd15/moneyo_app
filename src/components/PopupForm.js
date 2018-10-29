@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Modal, Text, TouchableHighlight, View, Alert } from "react-native"
 
-class ModalExample extends Component {
+class PopupForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -50,3 +50,4 @@ class ModalExample extends Component {
 		)
 	}
 }
+export default PopupForm
