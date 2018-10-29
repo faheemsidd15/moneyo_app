@@ -18,12 +18,12 @@ import DefaultHeader from "../components/DefaultHeader"
 export default class Summary extends React.Component {
 	render() {
 		return (
-			<View>
+			<View style={{ height: "100%" }}>
 				<DefaultHeader showMenu={true} open={this.props.navigation.openDrawer} title="Summary" />
 
 				<View
 					style={{
-						height: 250,
+						height: 175,
 						backgroundColor: CARD_BACKGROUND
 					}}
 				>

@@ -40,7 +40,7 @@ export default class StackedBarChartExample extends React.PureComponent {
 
 		return (
 			<StackedBarChart
-				style={{ height: 200 }}
+				style={{ height: "100%" }}
 				keys={keys}
 				colors={colors}
 				data={data}
