@@ -14,17 +14,18 @@ class Income extends React.Component {
 		}
 	}
 
-	setModalVisible = visible => {
-		this.setState({
-			modalVisible: visible
-		})
+	setModalVisible() {
+		this.setState({ modalVisible: true })
+	}
+	closeModal = () => {
+		this.setState({ modalVisible: false })
 	}
 
 	render() {
 		return (
 			<View style={{ height: "100%" }}>
 				<DefaultHeader showMenu={true} open={this.props.navigation.openDrawer} title="Income" />
-				<PopupForm visible={this.state.modalVisible} />
+				<PopupForm visible={this.state.modalVisible} close={this.closeModal} />
 				<ScrollView style={{ backgroundColor: BACKGROUND }}>
 					<Card title="Summary">
 						<View>
@@ -47,7 +48,9 @@ class Income extends React.Component {
 				>
 					<TouchableHighlight>
 						<Icon
-							onPress={this.setModalVisible}
+							onPress={() => {
+								this.setModalVisible()
+							}}
 							underlayColor={PRIMARY_COLOR}
 							type="entypo"
 							name="circle-with-plus"

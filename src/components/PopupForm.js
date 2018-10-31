@@ -1,52 +1,38 @@
 import React, { Component } from "react"
 import { Modal, Text, TouchableHighlight, View, Alert } from "react-native"
+import { ScrollView } from "react-native-gesture-handler"
 
 class PopupForm extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {
-			modalVisible: this.props.visible
-		}
-	}
-
-	setModalVisible(visible) {
-		this.setState({ modalVisible: visible })
 	}
 
 	render() {
 		return (
-			<View style={{ marginTop: 22 }}>
-				<Modal
-					animationType="slide"
-					transparent={false}
-					visible={this.state.modalVisible}
-					onRequestClose={() => {
-						Alert.alert("Modal has been closed.")
-					}}
-				>
-					<View style={{ marginTop: 22 }}>
+			<Modal
+				animationType="slide"
+				transparent={true}
+				visible={this.props.visible}
+				onRequestClose={() => {
+					Alert.alert("Modal has been closed.")
+				}}
+			>
+				<ScrollView>
+					<View style={{ paddingTop: 100, backgroundColor: "red", height: 400 }}>
 						<View>
 							<Text>Hello World!</Text>
 
 							<TouchableHighlight
 								onPress={() => {
-									this.setModalVisible(!this.state.modalVisible)
+									this.props.close()
 								}}
 							>
 								<Text>Hide Modal</Text>
 							</TouchableHighlight>
 						</View>
 					</View>
-				</Modal>
-
-				<TouchableHighlight
-					onPress={() => {
-						this.setModalVisible(true)
-					}}
-				>
-					<Text>Show Modal</Text>
-				</TouchableHighlight>
-			</View>
+				</ScrollView>
+			</Modal>
 		)
 	}
 }
