@@ -1,1 +1,1 @@
-export const TOKEN_KEY = "@moneyo/token"
+export const TOKEN_KEY = "@default/token"
