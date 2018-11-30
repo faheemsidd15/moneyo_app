@@ -2,6 +2,8 @@ import React from "react"
 import { View, Text, AsyncStorage, ScrollView } from "react-native"
 import { Button, Card, Tile, Header, Icon, List } from "react-native-elements"
 import TestGraph from "../components/TestGraph"
+import gql from "graphql-tag"
+import { Query } from "react-apollo"
 import {
 	PRIMARY_COLOR,
 	SECONDARY_COLOR,
@@ -14,6 +16,12 @@ import {
 } from "../AppTheme"
 
 import DefaultHeader from "../components/DefaultHeader"
+
+const totalIncome = gql`
+	{
+		totalIncome
+	}
+`
 
 export default class Summary extends React.Component {
 	render() {
@@ -62,7 +70,16 @@ export default class Summary extends React.Component {
 								/>
 								<Text style={{ color: LIGHT_GREEN }}>Add Income</Text>
 							</View>
-							<Text style={{ color: "white", fontSize: 50 }}>$0</Text>
+
+							<Query query={totalIncome}>
+								{({ loading, data }) => {
+									if (loading) {
+										return null
+									}
+									return <Text style={{ color: "white", fontSize: 50 }}>${data.totalIncome}</Text>
+								}}
+							</Query>
+
 							<View />
 						</View>
 					</Card>
