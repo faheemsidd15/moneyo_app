@@ -19,42 +19,42 @@ const me = gql`
 `
 
 class App extends Component {
-	render() {
-		return <AppDrawer />
-	}
+  render() {
+    return <AppDrawer />
+  }
 }
 
 const CustomDrawerComponent = props => (
-	<Query query={me}>
-		{({ loading, data }) => {
-			if (loading) {
-				return null
-			}
-			return (
-				<SafeAreaView style={{ flex: 1 }}>
-					<View style={{ height: 150, backgroundColor: SECONDARY_COLOR }}>
-						<Text style={{ color: "white" }}>{data.me.name}</Text>
-					</View>
-					<ScrollView style={{ backgroundColor: "rgb(51, 56, 81)" }}>
-						<DrawerItems {...props} style={{ color: "white" }} />
-					</ScrollView>
-				</SafeAreaView>
-			)
-		}}
-	</Query>
+  <Query query={me}>
+    {({ loading, data }) => {
+      if (loading) {
+        return null
+      }
+      return (
+        <SafeAreaView style={{ flex: 1 }}>
+          <View style={{ height: 150, backgroundColor: SECONDARY_COLOR }}>
+            <Text style={{ color: "white" }}>{data.me.name}</Text>
+          </View>
+          <ScrollView style={{ backgroundColor: "rgb(51, 56, 81)" }}>
+            <DrawerItems {...props} style={{ color: "white" }} />
+          </ScrollView>
+        </SafeAreaView>
+      )
+    }}
+  </Query>
 )
 
 const AppDrawer = createDrawerNavigator(
-	{
-		Summary: Summary,
-		Settings: Settings,
-		Income: Income
-	},
-	{
-		contentComponent: CustomDrawerComponent,
-		contentOptions: {
-			activeTintColor: "white"
-		}
-	}
+  {
+    Summary: Summary,
+    Settings: Settings,
+    Income: Income
+  },
+  {
+    contentComponent: CustomDrawerComponent,
+    contentOptions: {
+      activeTintColor: "white"
+    }
+  }
 )
 export default App

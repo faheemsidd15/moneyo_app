@@ -1,9 +1,49 @@
 import React from "react"
 import { View, Text, AsyncStorage, ScrollView, TouchableHighlight } from "react-native"
-import { Button, Card, Tile, Header, Icon, List } from "react-native-elements"
+import { Button, Card, Tile, Header, Icon, List, ListItem } from "react-native-elements"
 import DefaultHeader from "../components/DefaultHeader"
 import { BACKGROUND, LIGHT_GREEN, TERTIARY, QUATERNARY, PRIMARY_COLOR, QUINARY, SECONDARY_COLOR } from "../AppTheme"
 import PopupForm from "../components/PopupForm"
+import gql from "graphql-tag"
+import { Query } from "react-apollo"
+
+const GET_INCOMES = gql`
+	{
+		me {
+			incomes {
+				id
+				name
+				amount
+				type
+				payDate
+			}
+		}
+	}
+`
+
+const MyIncomes = ({ onIncomeSelect }) => (
+	<Query query={GET_INCOMES}>
+		{({ loading, error, data }) => {
+			if (loading) return "Loading..."
+			if (error) return `Error! ${error.message}`
+
+			return (
+				<List containerStyle={{ marginBottom: 20 }}>
+					{data.me.incomes.map(income => (
+						<ListItem
+							key={income.id}
+							title={income.name}
+							x
+							subtitle={<Text style={{ color: LIGHT_GREEN, fontWeight: "bold" }}>{income.amount}</Text>}
+							rightTitle={income.type}
+							onPress={onIncomeSelect}
+						/>
+					))}
+				</List>
+			)
+		}}
+	</Query>
+)
 
 class Income extends React.Component {
 	constructor() {
@@ -33,12 +73,17 @@ class Income extends React.Component {
 							<Text>From Income</Text>
 						</View>
 					</Card>
+					<MyIncomes
+						onIncomeSelect={() => {
+							console.log("Logging...")
+						}}
+					/>
 				</ScrollView>
 				<View
 					style={{
 						height: 100,
 						width: "100%",
-						position: "fixed",
+						position: "relative",
 						bottom: 0,
 						backgroundColor: PRIMARY_COLOR,
 						display: "flex",
