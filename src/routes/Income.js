@@ -6,6 +6,11 @@ import { BACKGROUND, LIGHT_GREEN, TERTIARY, QUATERNARY, PRIMARY_COLOR, QUINARY, 
 import PopupForm from "../components/PopupForm"
 import gql from "graphql-tag"
 import { Query } from "react-apollo"
+import styled from "styled-components"
+
+const Type = styled(Text)`
+	color: ${({ color }) => color};
+`
 
 const GET_INCOMES = gql`
 	{
@@ -21,6 +26,13 @@ const GET_INCOMES = gql`
 	}
 `
 
+const SHORTHAND_INCOME_TYPES = {
+	monthy: {
+		value: "M",
+		color: "rgba(255, 0, 0, 1)"
+	}
+}
+
 const MyIncomes = ({ onIncomeSelect }) => (
 	<Query query={GET_INCOMES}>
 		{({ loading, error, data }) => {
@@ -28,17 +40,25 @@ const MyIncomes = ({ onIncomeSelect }) => (
 			if (error) return `Error! ${error.message}`
 
 			return (
-				<List containerStyle={{ marginBottom: 20 }}>
-					{data.me.incomes.map(income => (
-						<ListItem
-							key={income.id}
-							title={income.name}
-							x
-							subtitle={<Text style={{ color: LIGHT_GREEN, fontWeight: "bold" }}>{income.amount}</Text>}
-							rightTitle={income.type}
-							onPress={onIncomeSelect}
-						/>
-					))}
+				<List containerStyle={{ margin: 5 }}>
+					{data.me.incomes.map(
+						income =>
+							console.log(income.type) || (
+								<ListItem
+									leftIcon={
+										<Text style={{ color: SHORTHAND_INCOME_TYPES[income.type].color }}>
+											{SHORTHAND_INCOME_TYPES[income.type].value}
+										</Text>
+									}
+									key={income.id}
+									title={income.name}
+									subtitle={`$${income.amount}`}
+									subtitleStyle={{ color: LIGHT_GREEN, fontWeight: "900" }}
+									rightTitle={income.type}
+									onPress={onIncomeSelect}
+								/>
+							)
+					)}
 				</List>
 			)
 		}}
@@ -67,15 +87,9 @@ class Income extends React.Component {
 				<DefaultHeader showMenu={true} open={this.props.navigation.openDrawer} title="Income" />
 				<PopupForm visible={this.state.modalVisible} close={this.closeModal} />
 				<ScrollView style={{ backgroundColor: BACKGROUND }}>
-					<Card title="Summary">
-						<View>
-							<Text>Hello</Text>
-							<Text>From Income</Text>
-						</View>
-					</Card>
 					<MyIncomes
 						onIncomeSelect={() => {
-							console.log("Logging...")
+							this.setModalVisible()
 						}}
 					/>
 				</ScrollView>
