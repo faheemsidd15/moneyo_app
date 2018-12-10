@@ -27,7 +27,7 @@ const GET_INCOMES = gql`
 `
 
 const SHORTHAND_INCOME_TYPES = {
-	monthy: {
+	monthly: {
 		value: "M",
 		color: "rgba(255, 0, 0, 1)"
 	}
@@ -45,6 +45,7 @@ const MyIncomes = ({ onIncomeSelect }) => (
 						income =>
 							console.log(income.type) || (
 								<ListItem
+									hideChevron
 									leftIcon={
 										<Text style={{ color: SHORTHAND_INCOME_TYPES[income.type].color }}>
 											{SHORTHAND_INCOME_TYPES[income.type].value}
@@ -70,7 +71,8 @@ class Income extends React.Component {
 		super()
 		this.state = {
 			incomes: [],
-			modalVisible: false
+			modalVisible: false,
+			listModalVisible: false
 		}
 	}
 
@@ -85,7 +87,7 @@ class Income extends React.Component {
 		return (
 			<View style={{ height: "100%" }}>
 				<DefaultHeader showMenu={true} open={this.props.navigation.openDrawer} title="Income" />
-				<PopupForm visible={this.state.modalVisible} close={this.closeModal} />
+				<PopupForm visible={this.state.modalVisible} close={this.closeModal} animation="slide" />
 				<ScrollView style={{ backgroundColor: BACKGROUND }}>
 					<MyIncomes
 						onIncomeSelect={() => {
