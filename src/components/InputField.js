@@ -15,7 +15,7 @@ export default class TextField extends React.PureComponent {
 		const placeholder = null
 		return (
 			<View style={{ display: "flex", flexDirection: "row" }}>
-				{isMoney ? <Icon type="foundation" name="dollar" size={30} color={"white"} /> : null}
+				{isMoney ? <Icon type="foundation" name="dollar" size={30} color={"black"} /> : null}
 				{"  "}
 				<TextInput
 					onChangeText={this.onChangeText}

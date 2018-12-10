@@ -10,7 +10,7 @@ import {
 	DatePickerIOS
 } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
-import { Icon, CheckBox } from "react-native-elements"
+import { Icon, Button } from "react-native-elements"
 import { BACKGROUND, LIGHT_GREEN, TERTIARY, QUATERNARY, PRIMARY_COLOR, QUINARY, SECONDARY_COLOR } from "../AppTheme"
 import TextField from "../components/TextField"
 import InputField from "../components/InputField"
@@ -121,7 +121,7 @@ class PopupForm extends Component {
 			>
 				<ScrollView>
 					<KeyboardAvoidingView>
-						<View style={{ paddingTop: 100, backgroundColor: SECONDARY_COLOR, height: 700 }}>
+						<View style={{ paddingTop: 100, backgroundColor: SECONDARY_COLOR, height: "101%" }}>
 							<View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end", padding: 10 }}>
 								<TouchableHighlight
 									onPress={() => {
@@ -158,9 +158,13 @@ class PopupForm extends Component {
 							</View>
 
 							<View styles={styles.flex}>
+								{/* {convert this to hide the date picker} */}
 								<Text style={{ color: "white", fontSize: 20, textAlign: "center" }}>Select pay date</Text>
 								<DatePickerIOS date={date} onDateChange={this.setDate} mode="date" />
 							</View>
+							<View style={styles.flex} />
+							{/* {change the color of this button} */}
+							<Button title="Submit" rounded underlayColor={QUATERNARY} />
 						</View>
 					</KeyboardAvoidingView>
 				</ScrollView>
