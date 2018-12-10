@@ -41,25 +41,22 @@ const MyIncomes = ({ onIncomeSelect }) => (
 
 			return (
 				<List containerStyle={{ margin: 5 }}>
-					{data.me.incomes.map(
-						income =>
-							console.log(income.type) || (
-								<ListItem
-									hideChevron
-									leftIcon={
-										<Text style={{ color: SHORTHAND_INCOME_TYPES[income.type].color }}>
-											{SHORTHAND_INCOME_TYPES[income.type].value}
-										</Text>
-									}
-									key={income.id}
-									title={income.name}
-									subtitle={`$${income.amount}`}
-									subtitleStyle={{ color: LIGHT_GREEN, fontWeight: "900" }}
-									rightTitle={income.type}
-									onPress={onIncomeSelect}
-								/>
-							)
-					)}
+					{data.me.incomes.map(income => (
+						<ListItem
+							hideChevron
+							leftIcon={
+								<Text style={{ color: SHORTHAND_INCOME_TYPES[income.type].color }}>
+									{SHORTHAND_INCOME_TYPES[income.type].value}
+								</Text>
+							}
+							key={income.id}
+							title={income.name}
+							subtitle={`$${income.amount}`}
+							subtitleStyle={{ color: LIGHT_GREEN, fontWeight: "900" }}
+							rightTitle={income.type}
+							onPress={onIncomeSelect}
+						/>
+					))}
 				</List>
 			)
 		}}

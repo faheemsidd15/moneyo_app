@@ -1,9 +1,10 @@
 import React, { Component } from "react"
-import { Modal, Text, TouchableHighlight, View, Alert, KeyboardAvoidingView, StyleSheet } from "react-native"
+import { Modal, Text, TouchableHighlight, View, Alert, KeyboardAvoidingView, StyleSheet, TextInput } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
-import { Icon } from "react-native-elements"
+import { Icon, CheckBox } from "react-native-elements"
 import { BACKGROUND, LIGHT_GREEN, TERTIARY, QUATERNARY, PRIMARY_COLOR, QUINARY, SECONDARY_COLOR } from "../AppTheme"
 import TextField from "../components/TextField"
+import InputField from "../components/InputField"
 
 import { graphql } from "react-apollo"
 import gql from "graphql-tag"
@@ -25,11 +26,22 @@ const defaultState = {
 		payDate: undefined
 	},
 	errors: {},
-	isSubmitting: false
+	isSubmitting: false,
+	checked: false
 }
 
 class PopupForm extends Component {
 	state = defaultState
+
+	onCheckMonthly = () => {
+		this.setState(state => ({
+			checked: !state.checked,
+			values: {
+				...state.values,
+				type: state.checked == true ? undefined : "monthly"
+			}
+		}))
+	}
 
 	onChangeText = (key, value) => {
 		this.setState(state => ({
@@ -39,6 +51,7 @@ class PopupForm extends Component {
 			}
 		}))
 	}
+
 	submit = async () => {
 		if (this.state.isSubmitting) {
 			return
@@ -66,9 +79,10 @@ class PopupForm extends Component {
 	render() {
 		const {
 			errors,
+			checked,
 			values: { name, amount, type, payDate }
 		} = this.state
-
+		console.log(this.state)
 		return (
 			<Modal
 				animationType={this.props.animation}
@@ -96,6 +110,24 @@ class PopupForm extends Component {
 							</View>
 							<View style={styles.flex}>
 								<TextField value={name} name="name" onChangeText={this.onChangeText} />
+							</View>
+							<View style={styles.flex}>
+								<InputField
+									value={amount}
+									name="amount"
+									onChangeText={this.onChangeText}
+									isMoney={amount == undefined || amount.length === 0 ? false : true}
+								/>
+							</View>
+							<View style={styles.flex}>
+								<CheckBox
+									title="Monthly"
+									onPress={this.onCheckMonthly}
+									checked={checked}
+									onIconPress={this.onCheckMonthly}
+								/>
+
+								<CheckBox value="biweekly" title="Bi-weekly" />
 							</View>
 						</View>
 					</KeyboardAvoidingView>

@@ -19,7 +19,7 @@ export default class TextField extends React.PureComponent {
 	}
 	render() {
 		const { value, secureTextEntry, name } = this.props
-		console.log("rendering", name)
+		//console.log("rendering", name)
 		return (
 			<FormInput
 				onChangeText={this.onChangeText}
