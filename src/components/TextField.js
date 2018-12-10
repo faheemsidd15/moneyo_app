@@ -2,14 +2,14 @@ import React from "react"
 import { StyleSheet } from "react-native"
 import { FormInput } from "react-native-elements"
 
-const styles = StyleSheet.create({
-	field: {
-		width: 200,
-		fontSize: 20,
-		color: "black",
-		borderBottomWidth: 1
-	}
-})
+// const styles = StyleSheet.create({
+// 	field: {
+// 		width: 200,
+// 		fontSize: 20,
+// 		color: "black",
+// 		borderBottomWidth: 1
+// 	}
+// })
 
 export default class TextField extends React.PureComponent {
 	onChangeText = text => {
@@ -18,14 +18,14 @@ export default class TextField extends React.PureComponent {
 		onChangeText(name, text)
 	}
 	render() {
-		const { value, secureTextEntry, name } = this.props
+		const { value, secureTextEntry, name, width } = this.props
 		//console.log("rendering", name)
 		return (
 			<FormInput
 				onChangeText={this.onChangeText}
 				value={value}
 				placeholder={name}
-				inputStyle={styles.field}
+				inputStyle={{ width: width == undefined ? 200 : width, fontSize: 20, color: "black", borderBottomWidth: 1 }}
 				placeholderTextColor="white"
 				autoCapitalize="none"
 				secureTextEntry={!!secureTextEntry}

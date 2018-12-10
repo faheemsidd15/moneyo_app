@@ -1,10 +1,20 @@
 import React, { Component } from "react"
-import { Modal, Text, TouchableHighlight, View, Alert, KeyboardAvoidingView, StyleSheet, TextInput } from "react-native"
+import {
+	Modal,
+	Text,
+	TouchableHighlight,
+	View,
+	Alert,
+	KeyboardAvoidingView,
+	StyleSheet,
+	DatePickerIOS
+} from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import { Icon, CheckBox } from "react-native-elements"
 import { BACKGROUND, LIGHT_GREEN, TERTIARY, QUATERNARY, PRIMARY_COLOR, QUINARY, SECONDARY_COLOR } from "../AppTheme"
 import TextField from "../components/TextField"
 import InputField from "../components/InputField"
+import IncomeTypeSelector from "../components/IncomeTypeSelector"
 
 import { graphql } from "react-apollo"
 import gql from "graphql-tag"
@@ -15,6 +25,14 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "center",
 		paddingTop: 15
+	},
+	flex2: {
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+		alignSelf: "center",
+		maxHeight: 150,
+		flexWrap: "wrap"
 	}
 })
 
@@ -27,18 +45,26 @@ const defaultState = {
 	},
 	errors: {},
 	isSubmitting: false,
-	checked: false
+	checked: false,
+	date: new Date()
 }
 
 class PopupForm extends Component {
 	state = defaultState
 
-	onCheckMonthly = () => {
+	setDate = newDate => {
 		this.setState(state => ({
-			checked: !state.checked,
+			...state,
+			date: newDate
+		}))
+	}
+
+	onCheckType = value => {
+		this.setState(state => ({
+			checked: state.values.type !== value,
 			values: {
 				...state.values,
-				type: state.checked == true ? undefined : "monthly"
+				type: state.values.type !== value ? value : undefined
 			}
 		}))
 	}
@@ -80,6 +106,7 @@ class PopupForm extends Component {
 		const {
 			errors,
 			checked,
+			date,
 			values: { name, amount, type, payDate }
 		} = this.state
 		console.log(this.state)
@@ -94,7 +121,7 @@ class PopupForm extends Component {
 			>
 				<ScrollView>
 					<KeyboardAvoidingView>
-						<View style={{ paddingTop: 100, backgroundColor: SECONDARY_COLOR, height: 400 }}>
+						<View style={{ paddingTop: 100, backgroundColor: SECONDARY_COLOR, height: 700 }}>
 							<View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end", padding: 10 }}>
 								<TouchableHighlight
 									onPress={() => {
@@ -109,25 +136,30 @@ class PopupForm extends Component {
 								<Text style={{ color: "white", fontSize: 30 }}>Create An Income</Text>
 							</View>
 							<View style={styles.flex}>
-								<TextField value={name} name="name" onChangeText={this.onChangeText} />
+								<TextField value={name} name="name" onChangeText={this.onChangeText} width={320} />
 							</View>
 							<View style={styles.flex}>
 								<InputField
+									width={320}
 									value={amount}
 									name="amount"
 									onChangeText={this.onChangeText}
 									isMoney={amount == undefined || amount.length === 0 ? false : true}
 								/>
 							</View>
-							<View style={styles.flex}>
-								<CheckBox
-									title="Monthly"
-									onPress={this.onCheckMonthly}
-									checked={checked}
-									onIconPress={this.onCheckMonthly}
-								/>
+							<View style={styles.flex2}>
+								<IncomeTypeSelector checked={checked} type={type} value="monthly" onCheckType={this.onCheckType} />
 
-								<CheckBox value="biweekly" title="Bi-weekly" />
+								<IncomeTypeSelector checked={checked} type={type} value="bi-weekly" onCheckType={this.onCheckType} />
+
+								<IncomeTypeSelector checked={checked} type={type} value="weekly" onCheckType={this.onCheckType} />
+
+								<IncomeTypeSelector checked={checked} type={type} value="daily" onCheckType={this.onCheckType} />
+							</View>
+
+							<View styles={styles.flex}>
+								<Text style={{ color: "white", fontSize: 20, textAlign: "center" }}>Select pay date</Text>
+								<DatePickerIOS date={date} onDateChange={this.setDate} mode="date" />
 							</View>
 						</View>
 					</KeyboardAvoidingView>

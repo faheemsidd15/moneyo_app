@@ -1,16 +1,7 @@
 import React from "react"
-import { StyleSheet, TextInput, View } from "react-native"
+import { TextInput, View } from "react-native"
 import { Icon } from "react-native-elements"
-
-const styles = StyleSheet.create({
-	field: {
-		paddingLeft: 5,
-		width: 200,
-		fontSize: 20,
-		color: "black",
-		borderBottomWidth: 1
-	}
-})
+import { BACKGROUND, LIGHT_GREEN, TERTIARY, QUATERNARY, PRIMARY_COLOR, QUINARY, SECONDARY_COLOR } from "../AppTheme"
 
 export default class TextField extends React.PureComponent {
 	onChangeText = text => {
@@ -19,17 +10,23 @@ export default class TextField extends React.PureComponent {
 		onChangeText(name, text)
 	}
 	render() {
-		const { value, name, isMoney } = this.props
+		const { value, name, isMoney, width } = this.props
 		//console.log("rendering", name)
 		const placeholder = null
 		return (
 			<View style={{ display: "flex", flexDirection: "row" }}>
-				{isMoney ? <Icon type="foundation" name="dollar" size={30} /> : null}
+				{isMoney ? <Icon type="foundation" name="dollar" size={30} color={"white"} /> : null}
 				{"  "}
 				<TextInput
 					onChangeText={this.onChangeText}
 					value={value}
-					style={styles.field}
+					style={{
+						paddingLeft: 5,
+						width: width == undefined ? 200 : width,
+						fontSize: 20,
+						color: "black",
+						borderBottomWidth: 1
+					}}
 					placeholderTextColor="white"
 					keyboardType="numeric"
 					placeholder={name}
