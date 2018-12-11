@@ -12,7 +12,7 @@ const Type = styled(Text)`
 	color: ${({ color }) => color};
 `
 
-const GET_INCOMES = gql`
+export const GET_INCOMES = gql`
 	{
 		me {
 			incomes {

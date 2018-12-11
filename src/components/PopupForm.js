@@ -16,7 +16,9 @@ import TextField from "../components/TextField"
 import InputField from "../components/InputField"
 import IncomeTypeSelector from "../components/IncomeTypeSelector"
 
-import { graphql } from "react-apollo"
+import { GET_INCOMES } from "../routes/Income"
+
+import { graphql, withApollo } from "react-apollo"
 import gql from "graphql-tag"
 
 const styles = StyleSheet.create({
@@ -24,7 +26,7 @@ const styles = StyleSheet.create({
 		display: "flex",
 		flexDirection: "row",
 		justifyContent: "center",
-		paddingTop: 15
+		paddingTop: 5
 	},
 	flex2: {
 		display: "flex",
@@ -50,6 +52,13 @@ const defaultState = {
 
 class PopupForm extends Component {
 	state = defaultState
+
+	resetState = () => {
+		this.setState(state => ({
+			...state,
+			values: defaultState.values
+		}))
+	}
 
 	setDate = newDate => {
 		this.setState(state => ({
@@ -89,19 +98,33 @@ class PopupForm extends Component {
 		})
 		let response
 		try {
-			response = await this.props.mutate({
-				variables: this.state.values
+			await this.props.mutate({
+				mutation: createIncomeMutation,
+				variables: {
+					input: this.state.values
+				},
+				update: (store, { data: { createIncome } }) => {
+					console.log("THis is createIncome", createIncome)
+					// Read the data from our cache for this query.
+					const data = store.readQuery({ query: GET_INCOMES })
+					console.log("This is data", data)
+					// Add our comment from the mutation to the end.
+					data.me.incomes.push(createIncome)
+					// Write our data back to the cache.
+					store.writeQuery({ query: GET_INCOMES, data })
+				}
 			})
 		} catch (err) {
 			this.setState({
 				errors: {
-					email: "Something went wrong"
+					name: "Something went wrong"
 				},
 				isSubmitting: false
 			})
 			return
 		}
-		console.log(response)
+		console.log("THis is the response", response)
+		this.props.close()
 	}
 
 	render() {
@@ -110,7 +133,6 @@ class PopupForm extends Component {
 			checked,
 			values: { name, amount, type, payDate }
 		} = this.state
-		console.log(this.state)
 		return (
 			<Modal
 				animationType={this.props.animation}
@@ -122,11 +144,12 @@ class PopupForm extends Component {
 			>
 				<KeyboardAvoidingView style={{ width: "100%", height: "100%" }} behavior="padding">
 					<ScrollView>
-						<View style={{ paddingTop: 25, backgroundColor: QUINARY, height: "101%", overflow: "hidden" }}>
+						<View style={{ paddingTop: 25, backgroundColor: SECONDARY_COLOR, height: "105%", overflow: "hidden" }}>
 							<View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end", padding: 10 }}>
 								<TouchableHighlight
 									onPress={() => {
 										this.props.close()
+										this.resetState()
 									}}
 								>
 									<Icon name="close" type="font-awesome" color="black" size={30} />
@@ -158,7 +181,7 @@ class PopupForm extends Component {
 								<IncomeTypeSelector checked={checked} type={type} value="daily" onCheckType={this.onCheckType} />
 							</View>
 
-							<View style={{ height: 150 }}>
+							<View style={{ height: 160 }}>
 								{/* {convert this to hide the date picker} */}
 								<Text style={{ color: "white", fontSize: 20, textAlign: "center" }}>Select pay date</Text>
 								<DatePickerIOS date={payDate} onDateChange={this.setDate} mode="date" />
@@ -171,6 +194,7 @@ class PopupForm extends Component {
 									raised
 									buttonStyle={{ backgroundColor: TERTIARY }}
 									icon={{ type: "font-awesome", name: "thumbs-o-up" }}
+									onPress={this.submit}
 								/>
 							</View>
 						</View>
@@ -180,4 +204,20 @@ class PopupForm extends Component {
 		)
 	}
 }
-export default PopupForm
+
+const createIncomeMutation = gql`
+	mutation CreateIncome($input: CreateIncomeInput!) {
+		createIncome(input: $input) {
+			id
+			name
+			amount
+			type
+			payDate
+			user {
+				id
+			}
+		}
+	}
+`
+
+export default graphql(createIncomeMutation)(PopupForm)
