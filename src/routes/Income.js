@@ -54,7 +54,7 @@ const MyIncomes = ({ onIncomeSelect }) => (
 							subtitle={`$${income.amount}`}
 							subtitleStyle={{ color: LIGHT_GREEN, fontWeight: "900" }}
 							rightTitle={income.type}
-							onPress={onIncomeSelect}
+							onPress={event => onIncomeSelect(income, event)}
 						/>
 					))}
 				</List>
@@ -68,6 +68,7 @@ class Income extends React.Component {
 		super()
 		this.state = {
 			incomes: [],
+			activeIncome: undefined,
 			modalVisible: false,
 			listModalVisible: false
 		}
@@ -87,8 +88,10 @@ class Income extends React.Component {
 				<PopupForm visible={this.state.modalVisible} close={this.closeModal} animation="slide" />
 				<ScrollView style={{ backgroundColor: BACKGROUND }}>
 					<MyIncomes
-						onIncomeSelect={() => {
-							this.setModalVisible()
+						onIncomeSelect={income => {
+							console.log(income)
+							//this.setModalVisible()
+							// Create a function that will handle make the clicked the active income and then based off that create a pop up with that info that can be edited
 						}}
 					/>
 				</ScrollView>
