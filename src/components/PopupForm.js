@@ -41,12 +41,11 @@ const defaultState = {
 		name: "",
 		amount: undefined,
 		type: "",
-		payDate: undefined
+		payDate: new Date()
 	},
 	errors: {},
 	isSubmitting: false,
-	checked: false,
-	date: new Date()
+	checked: false
 }
 
 class PopupForm extends Component {
@@ -55,7 +54,10 @@ class PopupForm extends Component {
 	setDate = newDate => {
 		this.setState(state => ({
 			...state,
-			date: newDate
+			values: {
+				...state.values,
+				payDate: newDate
+			}
 		}))
 	}
 
@@ -106,7 +108,6 @@ class PopupForm extends Component {
 		const {
 			errors,
 			checked,
-			date,
 			values: { name, amount, type, payDate }
 		} = this.state
 		console.log(this.state)
@@ -119,9 +120,9 @@ class PopupForm extends Component {
 					Alert.alert("Modal has been closed.")
 				}}
 			>
-				<ScrollView>
-					<KeyboardAvoidingView>
-						<View style={{ paddingTop: 100, backgroundColor: SECONDARY_COLOR, height: "101%" }}>
+				<KeyboardAvoidingView style={{ width: "100%", height: "100%" }} behavior="padding">
+					<ScrollView>
+						<View style={{ paddingTop: 25, backgroundColor: QUINARY, height: "101%", overflow: "hidden" }}>
 							<View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end", padding: 10 }}>
 								<TouchableHighlight
 									onPress={() => {
@@ -131,7 +132,7 @@ class PopupForm extends Component {
 									<Icon name="close" type="font-awesome" color="black" size={30} />
 								</TouchableHighlight>
 							</View>
-							<View />
+
 							<View style={{ display: "flex", justifyContent: "center", flexDirection: "row" }}>
 								<Text style={{ color: "white", fontSize: 30 }}>Create An Income</Text>
 							</View>
@@ -157,17 +158,24 @@ class PopupForm extends Component {
 								<IncomeTypeSelector checked={checked} type={type} value="daily" onCheckType={this.onCheckType} />
 							</View>
 
-							<View styles={styles.flex}>
+							<View style={{ height: 150 }}>
 								{/* {convert this to hide the date picker} */}
 								<Text style={{ color: "white", fontSize: 20, textAlign: "center" }}>Select pay date</Text>
-								<DatePickerIOS date={date} onDateChange={this.setDate} mode="date" />
+								<DatePickerIOS date={payDate} onDateChange={this.setDate} mode="date" />
 							</View>
-							<View style={styles.flex} />
-							{/* {change the color of this button} */}
-							<Button title="Submit" rounded underlayColor={QUATERNARY} />
+							<View style={{ paddingTop: 5 }}>
+								{/* {change the color of this button} */}
+								<Button
+									title="Submit"
+									rounded
+									raised
+									buttonStyle={{ backgroundColor: TERTIARY }}
+									icon={{ type: "font-awesome", name: "thumbs-o-up" }}
+								/>
+							</View>
 						</View>
-					</KeyboardAvoidingView>
-				</ScrollView>
+					</ScrollView>
+				</KeyboardAvoidingView>
 			</Modal>
 		)
 	}
