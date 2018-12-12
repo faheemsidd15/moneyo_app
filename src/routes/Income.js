@@ -80,6 +80,9 @@ class Income extends React.Component {
 	closeModal = () => {
 		this.setState({ modalVisible: false })
 	}
+	setActiveIncome = value => {
+		this.setState({ activeIncome: value })
+	}
 
 	render() {
 		return (
@@ -92,6 +95,7 @@ class Income extends React.Component {
 							console.log(income)
 							//this.setModalVisible()
 							// Create a function that will handle make the clicked the active income and then based off that create a pop up with that info that can be edited
+							this.setActiveIncome(income)
 						}}
 					/>
 				</ScrollView>
