@@ -30,6 +30,18 @@ const SHORTHAND_INCOME_TYPES = {
 	monthly: {
 		value: "M",
 		color: "rgba(255, 0, 0, 1)"
+	},
+	weekly: {
+		value: "W",
+		color: "rgba(0,255,0,1)"
+	},
+	biweekly: {
+		value: "Bi",
+		color: "rgba(0,0,255,1)"
+	},
+	daily: {
+		value: "D",
+		color: "rgba(0,0,0,1)"
 	}
 }
 
@@ -88,7 +100,15 @@ class Income extends React.Component {
 		return (
 			<View style={{ height: "100%" }}>
 				<DefaultHeader showMenu={true} open={this.props.navigation.openDrawer} title="Income" />
-				<PopupForm visible={this.state.modalVisible} close={this.closeModal} animation="slide" />
+				{this.state.modalVisible && (
+					<PopupForm
+						visible={this.state.modalVisible}
+						close={this.closeModal}
+						animation="slide"
+						activeIncome={this.state.activeIncome}
+						setActiveIncome={this.setActiveIncome}
+					/>
+				)}
 				<ScrollView style={{ backgroundColor: BACKGROUND }}>
 					<MyIncomes
 						onIncomeSelect={income => {
@@ -96,6 +116,7 @@ class Income extends React.Component {
 							//this.setModalVisible()
 							// Create a function that will handle make the clicked the active income and then based off that create a pop up with that info that can be edited
 							this.setActiveIncome(income)
+							this.setModalVisible()
 						}}
 					/>
 				</ScrollView>

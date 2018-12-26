@@ -15,7 +15,7 @@ export default class IncomeTypeSelector extends React.PureComponent {
         }}
         center
         checked={checked && type === value}
-        title={value.charAt(0).toUpperCase() + value.substr(1)}
+        title={value === "biweekly" ? "Bi-weekly" : value.charAt(0).toUpperCase() + value.substr(1)}
         textStyle={{ color: checked && type === value ? "white" : "black" }}
         onPress={() => onCheckType(value)}
         onIconPress={() => onCheckType(value)}

@@ -15,11 +15,13 @@ import { BACKGROUND, LIGHT_GREEN, TERTIARY, QUATERNARY, PRIMARY_COLOR, QUINARY, 
 import TextField from "../components/TextField"
 import InputField from "../components/InputField"
 import IncomeTypeSelector from "../components/IncomeTypeSelector"
+import parse from "date-fns/parse"
 
 import { GET_INCOMES } from "../routes/Income"
 
 import { graphql, withApollo } from "react-apollo"
 import gql from "graphql-tag"
+import { KnownTypeNamesRule } from "graphql"
 
 const styles = StyleSheet.create({
 	flex: {
@@ -51,9 +53,20 @@ const defaultState = {
 }
 
 class PopupForm extends Component {
-	state = defaultState
+	constructor(props) {
+		super(props)
+		this.state = defaultState
+
+		if (props.activeIncome) {
+			this.state = {
+				checked: true,
+				values: props.activeIncome
+			}
+		}
+	}
 
 	resetState = () => {
+		this.props.setActiveIncome(undefined)
 		this.setState(state => ({
 			...state,
 			values: defaultState.values
@@ -129,6 +142,7 @@ class PopupForm extends Component {
 	}
 
 	render() {
+		console.log("This is the current state", this.state)
 		const {
 			errors,
 			checked,
@@ -166,7 +180,7 @@ class PopupForm extends Component {
 							<View style={styles.flex}>
 								<InputField
 									width={320}
-									value={amount}
+									value={this.props.activeIncome ? amount.toString() : amount}
 									name="amount"
 									onChangeText={this.onChangeText}
 									isMoney={amount == undefined || amount.length === 0 ? false : true}
@@ -175,7 +189,7 @@ class PopupForm extends Component {
 							<View style={styles.flex2}>
 								<IncomeTypeSelector checked={checked} type={type} value="monthly" onCheckType={this.onCheckType} />
 
-								<IncomeTypeSelector checked={checked} type={type} value="bi-weekly" onCheckType={this.onCheckType} />
+								<IncomeTypeSelector checked={checked} type={type} value="biweekly" onCheckType={this.onCheckType} />
 
 								<IncomeTypeSelector checked={checked} type={type} value="weekly" onCheckType={this.onCheckType} />
 
@@ -185,7 +199,7 @@ class PopupForm extends Component {
 							<View style={{ height: 160 }}>
 								{/* {convert this to hide the date picker} */}
 								<Text style={{ color: "white", fontSize: 20, textAlign: "center" }}>Select pay date</Text>
-								<DatePickerIOS date={payDate} onDateChange={this.setDate} mode="date" />
+								<DatePickerIOS date={parse(payDate)} onDateChange={this.setDate} mode="date" />
 							</View>
 							<View style={{ paddingTop: 5 }}>
 								{/* {change the color of this button} */}
