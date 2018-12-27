@@ -204,7 +204,7 @@ class PopupForm extends Component {
 							<View style={{ paddingTop: 5 }}>
 								{/* {change the color of this button} */}
 								<Button
-									title="Submit"
+									title={this.props.activeIncome ? "Update" : "Submit"}
 									rounded
 									raised
 									buttonStyle={{ backgroundColor: TERTIARY }}
