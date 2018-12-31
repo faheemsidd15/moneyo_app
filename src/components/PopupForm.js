@@ -19,7 +19,7 @@ import parse from "date-fns/parse"
 
 import { GET_INCOMES } from "../routes/Income"
 
-import { graphql, withApollo } from "react-apollo"
+import { graphql, withApollo, compose } from "react-apollo"
 import gql from "graphql-tag"
 import { KnownTypeNamesRule } from "graphql"
 
@@ -49,6 +49,7 @@ const defaultState = {
 	},
 	errors: {},
 	isSubmitting: false,
+	isDeleting: false,
 	checked: false
 }
 
@@ -141,6 +142,43 @@ class PopupForm extends Component {
 		this.resetState()
 	}
 
+	deleteIncome = async value => {
+		if (this.state.isDeleting) {
+			return
+		}
+		this.setState({
+			isDeleting: true
+		})
+		let response
+		try {
+			await this.props.mutate({
+				mutation: deleteIncomeMutaton,
+				variables: {
+					id: value
+				},
+				update: (store, { data: { deleteIncome } }) => {
+					const data = store.readQuery({ query: GET_INCOMES })
+					// console.log("This is the data after delete", data)
+					// console.log("this is the response from deleate income", deleteIncome)
+
+					data.me.incomes = data.me.incomes.filter(x => x.id != deleteIncome.id)
+
+					store.writeQuery({ query: GET_INCOMES, data })
+				}
+			})
+		} catch (err) {
+			this.setState({
+				errors: {
+					name: "Something went wrong when Deleting"
+				},
+				isDeleting: false
+			})
+			return
+		}
+
+		this.props.close()
+	}
+
 	render() {
 		console.log("This is the current state", this.state)
 		const {
@@ -211,6 +249,19 @@ class PopupForm extends Component {
 									icon={{ type: "font-awesome", name: "thumbs-o-up" }}
 									onPress={this.submit}
 								/>
+								{this.props.activeIncome && (
+									<Button
+										title="Delete"
+										rounded
+										raised
+										buttonStyle={{ backgroundColor: QUATERNARY, marginTop: 10 }}
+										icon={{
+											type: "font-awesome",
+											name: "trash-o"
+										}}
+										onPress={() => this.deleteIncome(this.state.values.id)}
+									/>
+								)}
 							</View>
 						</View>
 					</ScrollView>
@@ -234,5 +285,15 @@ const createIncomeMutation = gql`
 		}
 	}
 `
+const deleteIncomeMutaton = gql`
+	mutation deleteIncome($id: ID!) {
+		deleteIncome(id: $id) {
+			id
+		}
+	}
+`
 
-export default graphql(createIncomeMutation)(PopupForm)
+export default compose(
+	graphql(createIncomeMutation),
+	graphql(deleteIncomeMutaton)
+)(PopupForm)
