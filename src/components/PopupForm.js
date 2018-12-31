@@ -70,7 +70,9 @@ class PopupForm extends Component {
 		this.props.setActiveIncome(undefined)
 		this.setState(state => ({
 			...state,
-			values: defaultState.values
+			values: defaultState.values,
+			isSubmitting: false,
+			isDeleting: false
 		}))
 	}
 
@@ -139,7 +141,6 @@ class PopupForm extends Component {
 		}
 		console.log("THis is the response", response)
 		this.props.close()
-		this.resetState()
 	}
 
 	deleteIncome = async value => {
@@ -177,6 +178,10 @@ class PopupForm extends Component {
 		}
 
 		this.props.close()
+	}
+
+	componentWillUnmount() {
+		this.resetState()
 	}
 
 	render() {
