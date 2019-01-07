@@ -2,11 +2,21 @@ import React from "react"
 import { View, Text, AsyncStorage, ScrollView, TouchableHighlight } from "react-native"
 import { Button, Card, Tile, Header, Icon, List, ListItem } from "react-native-elements"
 import DefaultHeader from "../components/DefaultHeader"
-import { BACKGROUND, LIGHT_GREEN, TERTIARY, QUATERNARY, PRIMARY_COLOR, QUINARY, SECONDARY_COLOR } from "../AppTheme"
+import {
+	BACKGROUND,
+	LIGHT_GREEN,
+	TERTIARY,
+	QUATERNARY,
+	PRIMARY_COLOR,
+	QUINARY,
+	SECONDARY_COLOR,
+	CARD_BACKGROUND
+} from "../AppTheme"
 import PopupForm from "../components/PopupForm"
 import gql from "graphql-tag"
 import { Query } from "react-apollo"
 import styled from "styled-components"
+import format from "date-fns/format"
 
 const Type = styled(Text)`
 	color: ${({ color }) => color};
@@ -52,20 +62,29 @@ const MyIncomes = ({ onIncomeSelect }) => (
 			if (error) return `Error! ${error.message}`
 
 			return (
-				<List containerStyle={{ margin: 5 }}>
+				<List containerStyle={{ margin: 5, backgroundColor: CARD_BACKGROUND }}>
 					{data.me.incomes.map(income => (
 						<ListItem
-							hideChevron
 							leftIcon={
-								<Text style={{ color: SHORTHAND_INCOME_TYPES[income.type].color }}>
+								<Text
+									style={{
+										color: SHORTHAND_INCOME_TYPES[income.type].color,
+										fontSize: 20,
+										paddingRight: 20,
+										fontWeight: "800"
+									}}
+								>
 									{SHORTHAND_INCOME_TYPES[income.type].value}
 								</Text>
 							}
+							titleContainerStyle={{ width: 300 }}
+							containerStyle={{ margin: 10, backgroundColor: CARD_BACKGROUND }}
 							key={income.id}
 							title={income.name}
-							subtitle={`$${income.amount}`}
-							subtitleStyle={{ color: LIGHT_GREEN, fontWeight: "900" }}
-							rightTitle={income.type}
+							subtitle={format(income.payDate, "MM/DD/YYYY")}
+							subtitleStyle={{ color: "rgba(200,200,200,0.8)", fontWeight: "900" }}
+							rightTitle={`$${income.amount}`}
+							rightTitleStyle={{ color: LIGHT_GREEN, fontWeight: "900" }}
 							onPress={event => onIncomeSelect(income, event)}
 						/>
 					))}
