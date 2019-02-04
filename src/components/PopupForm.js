@@ -139,7 +139,6 @@ class PopupForm extends Component {
 			})
 			return
 		}
-		console.log("THis is the response", response)
 		this.props.close()
 	}
 
