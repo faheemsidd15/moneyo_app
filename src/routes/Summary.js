@@ -43,7 +43,7 @@ export default class Summary extends React.Component {
 
             //wrapperStyle={{ display: "flex", justifyContent: "center", alignItems: "center" }}
           >
-            <Query query={totalIncome}>
+            <Query query={totalIncome} notifyOnNetworkStatusChange={true}>
               {({ loading, data }) => {
                 if (loading) {
                   return null
