@@ -62,7 +62,7 @@ const MyIncomes = ({ onIncomeSelect }) => (
 			if (error) return `Error! ${error.message}`
 
 			return (
-				<List containerStyle={{ margin: 5, backgroundColor: "rgb(200, 200, 200)" }}>
+				<List containerStyle={{ margin: 5, backgroundColor: "transparent" }}>
 					{data.me.incomes.map(income => (
 						<ListItem
 							leftIcon={
@@ -78,7 +78,7 @@ const MyIncomes = ({ onIncomeSelect }) => (
 								</Text>
 							}
 							titleContainerStyle={{ width: 300 }}
-							containerStyle={{ margin: 10, backgroundColor: "rgb(255, 255, 255)" }}
+							containerStyle={{ margin: 10, backgroundColor: "rgb(255, 255, 255)", borderRadius: 20 }}
 							key={income.id}
 							title={income.name}
 							subtitle={format(income.payDate, "MM/DD/YYYY")}
