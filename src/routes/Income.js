@@ -13,27 +13,13 @@ import {
 	CARD_BACKGROUND
 } from "../AppTheme"
 import PopupForm from "../components/PopupForm"
-import gql from "graphql-tag"
+import { GET_INCOMES } from "../Queries"
 import { Query } from "react-apollo"
 import styled from "styled-components"
 import format from "date-fns/format"
 
 const Type = styled(Text)`
 	color: ${({ color }) => color};
-`
-
-export const GET_INCOMES = gql`
-	{
-		me {
-			incomes {
-				id
-				name
-				amount
-				type
-				payDate
-			}
-		}
-	}
 `
 
 const SHORTHAND_INCOME_TYPES = {
