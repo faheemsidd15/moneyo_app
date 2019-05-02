@@ -2,21 +2,13 @@ import React, { Component } from "react"
 import { View, Text, AsyncStorage, SafeAreaView, ScrollView, Dimensions } from "react-native"
 import { Button, Card, Tile, Header, Icon, List } from "react-native-elements"
 import { createDrawerNavigator, DrawerItems } from "react-navigation"
-import gql from "graphql-tag"
+import { ME } from "../Queries"
 import { Query } from "react-apollo"
 import { LIGHT_GREEN, PRIMARY_COLOR, SECONDARY_COLOR } from "../AppTheme"
 
 import Settings from "./Settings.js"
 import Summary from "./Summary.js"
 import Income from "./Income.js"
-
-const me = gql`
-	{
-		me {
-			name
-		}
-	}
-`
 
 class App extends Component {
   render() {
@@ -25,7 +17,7 @@ class App extends Component {
 }
 
 const CustomDrawerComponent = props => (
-  <Query query={me}>
+  <Query query={ME}>
     {({ loading, data }) => {
       if (loading) {
         return null

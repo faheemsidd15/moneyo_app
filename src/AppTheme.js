@@ -7,4 +7,4 @@ export const QUINARY = "rgb(31, 191, 205)"
 export const LIGHT_GREEN = "rgb(118, 197, 37)"
 
 export const BACKGROUND = "rgb(51, 56, 81)"
-export const CARD_BACKGROUND = "rgb(31, 45, 51)"
+export const CARD_BACKGROUND = "rgb(255, 255, 255)"

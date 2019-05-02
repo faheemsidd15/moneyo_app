@@ -17,7 +17,7 @@ import InputField from "../components/InputField"
 import IncomeTypeSelector from "../components/IncomeTypeSelector"
 import parse from "date-fns/parse"
 
-import { GET_INCOMES } from "../routes/Income"
+import { GET_INCOMES, TOTAL_INCOME } from "../Queries"
 
 import { graphql, withApollo, compose } from "react-apollo"
 import gql from "graphql-tag"
@@ -128,6 +128,7 @@ class PopupForm extends Component {
 					data.me.incomes.push(createIncome)
 					// Write our data back to the cache.
 					store.writeQuery({ query: GET_INCOMES, data })
+					//store.writeQuery({ query: TOTAL_INCOME, data })
 				}
 			})
 		} catch (err) {
@@ -185,6 +186,7 @@ class PopupForm extends Component {
 
 	render() {
 		console.log("This is the current state", this.state)
+		console.log("PROPS", this.props)
 		const {
 			errors,
 			checked,

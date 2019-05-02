@@ -19,3 +19,11 @@ export const GET_INCOMES = gql`
 		}
 	}
 `
+
+export const ME = gql`
+	{
+		me {
+			name
+		}
+	}
+`

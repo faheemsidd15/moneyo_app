@@ -4,12 +4,21 @@ import { Button, Card, Tile, Header, Icon, List } from "react-native-elements"
 import TestGraph from "../components/TestGraph"
 import { TOTAL_INCOME } from "../Queries"
 import { Query } from "react-apollo"
+import { graphql } from "react-apollo"
 import { TERTIARY, LIGHT_GREEN, CARD_BACKGROUND, BACKGROUND } from "../AppTheme"
 import DefaultHeader from "../components/DefaultHeader"
 import { LinearGradient } from "expo"
 
-export default class Summary extends React.Component {
+class Summary extends React.Component {
   render() {
+    const { navigation, data } = this.props
+    console.log("hello", navigation.state)
+    console.log("PROPS", data)
+
+    if (navigation.state.routeName === "Summary") {
+      data.refetch(TOTAL_INCOME)
+    }
+
     return (
       <View style={{ height: "100%" }}>
         <DefaultHeader showMenu={true} open={this.props.navigation.openDrawer} title="Summary" />
@@ -22,7 +31,7 @@ export default class Summary extends React.Component {
         >
           <TestGraph />
         </View> */}
-        <LinearGradient colors={[LIGHT_GREEN, TERTIARY]} style={{ height: "100%" }}>
+        <LinearGradient colors={[BACKGROUND, TERTIARY]} style={{ height: "100%" }}>
           <ScrollView>
             <Card
               title="Monthly Income"
@@ -79,7 +88,7 @@ export default class Summary extends React.Component {
                       }}
                     >
                       <View style={{ paddingBottom: 20 }}>
-                        <Text style={{ color: "white", fontSize: 40 }}>${data.totalIncome}</Text>
+                        <Text style={{ color: "black", fontSize: 40 }}>${data.totalIncome}</Text>
                       </View>
                       <View
                         style={{
@@ -144,3 +153,5 @@ export default class Summary extends React.Component {
     )
   }
 }
+
+export default graphql(TOTAL_INCOME)(Summary)
