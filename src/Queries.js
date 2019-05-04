@@ -1,8 +1,8 @@
 import gql from "graphql-tag"
 
-export const TOTAL_INCOME = gql`
+export const TOTAL_MONTHLY_INCOME = gql`
 	{
-		totalIncome
+		totalMonthlyIncome
 	}
 `
 

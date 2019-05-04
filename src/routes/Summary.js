@@ -2,10 +2,10 @@ import React from "react"
 import { View, Text, AsyncStorage, ScrollView } from "react-native"
 import { Button, Card, Tile, Header, Icon, List } from "react-native-elements"
 import TestGraph from "../components/TestGraph"
-import { TOTAL_INCOME } from "../Queries"
+import { TOTAL_MONTHLY_INCOME } from "../Queries"
 import { Query } from "react-apollo"
 import { graphql } from "react-apollo"
-import { TERTIARY, LIGHT_GREEN, CARD_BACKGROUND, BACKGROUND } from "../AppTheme"
+import { TERTIARY, LIGHT_GREEN, CARD_BACKGROUND, BACKGROUND, QUATERNARY, QUINARY, SECONDARY_COLOR } from "../AppTheme"
 import DefaultHeader from "../components/DefaultHeader"
 import { LinearGradient } from "expo"
 
@@ -16,7 +16,8 @@ class Summary extends React.Component {
     console.log("PROPS", data)
 
     if (navigation.state.routeName === "Summary") {
-      data.refetch(TOTAL_INCOME)
+      console.log("called this many times")
+      data.refetch(TOTAL_MONTHLY_INCOME)
     }
 
     return (
@@ -47,7 +48,7 @@ class Summary extends React.Component {
 
               //wrapperStyle={{ display: "flex", justifyContent: "center", alignItems: "center" }}
             >
-              <Query query={TOTAL_INCOME} notifyOnNetworkStatusChange={true}>
+              <Query query={TOTAL_MONTHLY_INCOME} notifyOnNetworkStatusChange={true}>
                 {({ loading, data }) => {
                   if (loading) {
                     return null
@@ -154,4 +155,4 @@ class Summary extends React.Component {
   }
 }
 
-export default graphql(TOTAL_INCOME)(Summary)
+export default graphql(TOTAL_MONTHLY_INCOME)(Summary)
