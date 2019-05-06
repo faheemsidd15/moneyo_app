@@ -1,19 +1,47 @@
 import React from "react"
 import { Header, Icon } from "react-native-elements"
 import { PRIMARY_COLOR } from "../AppTheme"
+import { Text, View } from "react-native"
+import { Font } from "expo"
+
+class Heading extends React.Component {
+	constructor() {
+		super()
+		this.state = {
+			fontLoaded: false
+		}
+	}
+	async componentDidMount() {
+		await Font.loadAsync({
+			"Sofia-Regular": require("../../assets/fonts/Sofia-Regular.ttf")
+		})
+
+		this.setState({ fontLoaded: true })
+	}
+
+	render() {
+		return (
+			<View>
+				{this.state.fontLoaded ? (
+					<Text style={{ color: "white", fontSize: 30, fontFamily: "Sofia-Regular" }}>MoneyO</Text>
+				) : null}
+			</View>
+		)
+	}
+}
 
 export default class DefaultHeader extends React.PureComponent {
-  render() {
-    return (
-      <Header
-        innerContainerStyles={{ paddingTop: 10 }}
-        outerContainerStyles={{ height: 100 }}
-        centerComponent={{ text: this.props.title, style: { color: "white", fontSize: 26 } }}
-        backgroundColor={PRIMARY_COLOR}
-        leftComponent={
-          this.props.showMenu === true ? <Icon name="menu" onPress={this.props.open} color="white" /> : null
-        }
-      />
-    )
-  }
+	render() {
+		return (
+			<Header
+				innerContainerStyles={{ paddingTop: 10 }}
+				outerContainerStyles={{ height: 100 }}
+				centerComponent={<Heading />}
+				backgroundColor={PRIMARY_COLOR}
+				leftComponent={
+					this.props.showMenu === true ? <Icon name="menu" onPress={this.props.open} color="white" /> : null
+				}
+			/>
+		)
+	}
 }

@@ -2,6 +2,8 @@ import React from "react"
 import { View, Text, AsyncStorage, ScrollView } from "react-native"
 import { Button, Card, Tile, Header, Icon, List } from "react-native-elements"
 import TestGraph from "../components/TestGraph"
+import TestPie from "../components/TestPieChart"
+
 import { TOTAL_MONTHLY_INCOME } from "../Queries"
 import { Query } from "react-apollo"
 import { graphql } from "react-apollo"
@@ -12,25 +14,23 @@ import { LinearGradient } from "expo"
 class Summary extends React.Component {
   render() {
     const { navigation, data } = this.props
-    console.log("hello", navigation.state)
-    console.log("PROPS", data)
 
     if (navigation.state.routeName === "Summary") {
-      console.log("called this many times")
       data.refetch(TOTAL_MONTHLY_INCOME)
     }
 
     return (
       <View style={{ height: "100%" }}>
-        <DefaultHeader showMenu={true} open={this.props.navigation.openDrawer} title="Summary" />
+        <DefaultHeader showMenu={true} open={this.props.navigation.openDrawer} title="MoneyO" />
 
         {/* <View
           style={{
             height: 175,
-            backgroundColor: CARD_BACKGROUND
+            backgroundColor: "black"
           }}
         >
-          <TestGraph />
+           <TestGraph /> 
+          <TestPie />
         </View> */}
         <LinearGradient colors={[BACKGROUND, TERTIARY]} style={{ height: "100%" }}>
           <ScrollView>
@@ -53,7 +53,7 @@ class Summary extends React.Component {
                   if (loading) {
                     return null
                   }
-                  if (data.totalIncome === null) {
+                  if (data.totalMonthlyIncome === null) {
                     return (
                       <View
                         style={{
@@ -89,7 +89,7 @@ class Summary extends React.Component {
                       }}
                     >
                       <View style={{ paddingBottom: 20 }}>
-                        <Text style={{ color: "black", fontSize: 40 }}>${data.totalIncome}</Text>
+                        <Text style={{ color: "black", fontSize: 40 }}>${data.totalMonthlyIncome}</Text>
                       </View>
                       <View
                         style={{
