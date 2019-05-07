@@ -1,13 +1,13 @@
 import React from "react"
-import { Button, Card, Tile, Header, Icon, List } from "react-native-elements"
-import { View, Text, AsyncStorage, ScrollView, Animated, Dimensions, StyleSheet } from "react-native"
-
+import { Card, Icon } from "react-native-elements"
+import { View, Text, ScrollView, Animated, Dimensions, StyleSheet } from "react-native"
 import { TOTAL_MONTHLY_INCOME } from "../Queries"
 import { Query } from "react-apollo"
 import { graphql } from "react-apollo"
 import { TERTIARY, LIGHT_GREEN, CARD_BACKGROUND, BACKGROUND, QUATERNARY, QUINARY, SECONDARY_COLOR } from "../AppTheme"
 import DefaultHeader from "../components/DefaultHeader"
 import { LinearGradient } from "expo"
+import SvgComponent from "../components/Lines"
 
 const deviceWidth = Dimensions.get("window").width
 const deviceHeight = Dimensions.get("window").height
@@ -82,10 +82,14 @@ class Summary extends React.Component {
 							containerStyle={{
 								height: 500,
 								width: 300,
-								backgroundColor: CARD_BACKGROUND,
-								borderColor: "transparent",
+								backgroundColor: "rgba(0,0,0,0.1)",
+								borderColor: "black",
 								borderRadius: 10,
-								overflow: "hidden"
+								overflow: "hidden",
+								shadowColor: "#000",
+								shadowOffset: { width: 0, height: 2 },
+								shadowOpacity: 0.8,
+								shadowRadius: 2
 							}}
 							titleStyle={{ fontSize: 20, color: LIGHT_GREEN, textAlign: "left" }}
 							dividerStyle={{ backgroundColor: LIGHT_GREEN }}
@@ -133,7 +137,7 @@ class Summary extends React.Component {
 											}}
 										>
 											<View style={{ paddingBottom: 20 }}>
-												<Text style={{ color: "black", fontSize: 40 }}>${data.totalMonthlyIncome}</Text>
+												<Text style={{ color: "white", fontSize: 40 }}>${data.totalMonthlyIncome}</Text>
 											</View>
 											<View
 												style={{
@@ -155,6 +159,12 @@ class Summary extends React.Component {
 									)
 								}}
 							</Query>
+							<SvgComponent
+								width="600"
+								height="500"
+								fill="rgba(255,255,255,0.6)"
+								style={{ backgroundColor: "transparent", position: "absolute", left: -20 }}
+							/>
 						</Card>
 						<Card
 							title="Monthly Expenses"
