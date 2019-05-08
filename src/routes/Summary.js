@@ -81,9 +81,9 @@ class Summary extends React.Component {
 							title="Monthly Income"
 							containerStyle={{
 								height: 500,
-								width: 300,
+								width: deviceWidth * 0.9,
 								backgroundColor: "rgba(0,0,0,0.1)",
-								borderColor: "black",
+								borderColor: "white",
 								borderRadius: 10,
 								overflow: "hidden",
 								shadowColor: "#000",
