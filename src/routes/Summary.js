@@ -66,8 +66,8 @@ class Summary extends React.Component {
 				<DefaultHeader showMenu={true} open={this.props.navigation.openDrawer} title="MoneyO" />
 
 				<LinearGradient colors={[BACKGROUND, TERTIARY]} style={{ height: deviceHeight, width: deviceWidth }}>
-					<View style={{ width: "100%", height: 100 }}>
-						<Text>Summary</Text>
+					<View style={styles.summaryTextContainer}>
+						<Text style={styles.summaryText}>Summary</Text>
 					</View>
 
 					<ScrollView
@@ -216,6 +216,17 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center"
+	},
+	summaryTextContainer: {
+		width: "100%",
+		height: 100,
+		paddingTop: 10,
+		paddingLeft: deviceWidth * 0.05
+	},
+	summaryText: {
+		color: "rgba(255,255,255, 0.4)",
+		fontSize: 30,
+		fontWeight: "700"
 	},
 	barContainer: {
 		position: "absolute",
