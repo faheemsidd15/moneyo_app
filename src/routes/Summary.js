@@ -2,12 +2,12 @@ import React from "react"
 import { Card, Icon } from "react-native-elements"
 import { View, Text, ScrollView, Animated, Dimensions, StyleSheet } from "react-native"
 import { TOTAL_MONTHLY_INCOME } from "../Queries"
-import { Query } from "react-apollo"
+
 import { graphql } from "react-apollo"
 import { TERTIARY, LIGHT_GREEN, CARD_BACKGROUND, BACKGROUND, QUATERNARY, QUINARY, SECONDARY_COLOR } from "../AppTheme"
 import DefaultHeader from "../components/DefaultHeader"
+import Cards from "../components/Cards"
 import { LinearGradient } from "expo"
-import SvgComponent from "../components/Lines"
 
 const deviceWidth = Dimensions.get("window").width
 const deviceHeight = Dimensions.get("window").height
@@ -77,95 +77,14 @@ class Summary extends React.Component {
 						pagingEnabled
 						onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.animVal } } }])}
 					>
-						<Card
+						<Cards
+							color={LIGHT_GREEN}
+							query={TOTAL_MONTHLY_INCOME}
+							destinaiton="Income"
+							finType="Income"
 							title="Monthly Income"
-							containerStyle={{
-								height: 500,
-								width: deviceWidth * 0.9,
-								backgroundColor: "rgba(0,0,0,0.1)",
-								borderColor: "white",
-								borderRadius: 10,
-								overflow: "hidden",
-								shadowColor: "#000",
-								shadowOffset: { width: 0, height: 2 },
-								shadowOpacity: 0.8,
-								shadowRadius: 2
-							}}
-							titleStyle={{ fontSize: 20, color: LIGHT_GREEN, textAlign: "left" }}
-							dividerStyle={{ backgroundColor: LIGHT_GREEN }}
-
-							//wrapperStyle={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-						>
-							<Query query={TOTAL_MONTHLY_INCOME} notifyOnNetworkStatusChange={true}>
-								{({ loading, data }) => {
-									if (loading) {
-										return null
-									}
-									if (data.totalMonthlyIncome === null) {
-										return (
-											<View
-												style={{
-													display: "flex",
-													flexDirection: "column",
-													justifyContent: "center",
-													alignItems: "center",
-													width: "100%"
-												}}
-											>
-												<Text style={{ color: "white", fontSize: 25 }}>
-													Press{"   "}
-													<Icon
-														type="font-awesome"
-														name="plus"
-														color={LIGHT_GREEN}
-														onPress={() => this.props.navigation.navigate("Income")}
-													/>
-													{"   "}
-													to Add an Income
-												</Text>
-											</View>
-										)
-									}
-
-									return (
-										<View
-											style={{
-												display: "flex",
-												flexDirection: "column",
-												justifyContent: "center",
-												alignItems: "center"
-											}}
-										>
-											<View style={{ paddingBottom: 20 }}>
-												<Text style={{ color: "white", fontSize: 40 }}>${data.totalMonthlyIncome}</Text>
-											</View>
-											<View
-												style={{
-													display: "flex",
-													flexDirection: "column",
-													justifyContent: "center",
-													alignItems: "center"
-												}}
-											>
-												<Icon
-													type="font-awesome"
-													name="plus"
-													color={LIGHT_GREEN}
-													size={45}
-													onPress={() => this.props.navigation.navigate("Income")}
-												/>
-											</View>
-										</View>
-									)
-								}}
-							</Query>
-							<SvgComponent
-								width="600"
-								height="500"
-								fill="rgba(255,255,255,0.6)"
-								style={{ backgroundColor: "transparent", position: "absolute", left: -20 }}
-							/>
-						</Card>
+							destination={() => this.props.navigation.navigate("Income")}
+						/>
 						<Card
 							title="Monthly Expenses"
 							containerStyle={{
