@@ -36,7 +36,7 @@ const Cards = props => {
     >
       <Query query={query} notifyOnNetworkStatusChange>
         {({ loading, data }) => {
-          console.log("Card Data", Object.values(data)[0])
+          //console.log("Card Data", Object.values(data)[0])
 
           if (loading) {
             return null

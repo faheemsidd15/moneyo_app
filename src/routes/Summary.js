@@ -2,7 +2,6 @@ import React from "react"
 import { Card, Icon } from "react-native-elements"
 import { View, Text, ScrollView, Animated, Dimensions, StyleSheet } from "react-native"
 import { TOTAL_MONTHLY_INCOME } from "../Queries"
-
 import { graphql } from "react-apollo"
 import { TERTIARY, LIGHT_GREEN, CARD_BACKGROUND, BACKGROUND, QUATERNARY, QUINARY, SECONDARY_COLOR } from "../AppTheme"
 import DefaultHeader from "../components/DefaultHeader"

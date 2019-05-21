@@ -104,7 +104,13 @@ class Income extends React.Component {
 	render() {
 		return (
 			<View style={{ height: "100%" }}>
-				<DefaultHeader showMenu={true} open={this.props.navigation.openDrawer} title="Income" />
+				<DefaultHeader
+					showMenu={true}
+					open={this.props.navigation.openDrawer}
+					title="Income"
+					showBackButton
+					back={() => this.props.navigation.goBack(null)}
+				/>
 				{this.state.modalVisible && (
 					<PopupForm
 						visible={this.state.modalVisible}

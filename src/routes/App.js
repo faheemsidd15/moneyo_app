@@ -44,6 +44,7 @@ const AppDrawer = createDrawerNavigator(
   },
   {
     contentComponent: CustomDrawerComponent,
+    drawerPosition: "right",
     contentOptions: {
       activeTintColor: "white"
     }
