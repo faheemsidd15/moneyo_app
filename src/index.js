@@ -9,7 +9,7 @@ import { TOKEN_KEY } from "./constants"
 /* For local dev, change the IP to localhost */
 
 const client = new ApolloClient({
-	uri: "http://localhost:4000/",
+	uri: "http://10.144.59.49:4000/",
 	request: async operation => {
 		const token = await AsyncStorage.getItem(TOKEN_KEY)
 		operation.setContext({

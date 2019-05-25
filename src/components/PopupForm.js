@@ -7,7 +7,9 @@ import {
 	Alert,
 	KeyboardAvoidingView,
 	StyleSheet,
-	DatePickerIOS
+	DatePickerIOS,
+	Dimensions,
+	Keyboard
 } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import { Icon, Button } from "react-native-elements"
@@ -16,24 +18,34 @@ import TextField from "../components/TextField"
 import InputField from "../components/InputField"
 import IncomeTypeSelector from "../components/IncomeTypeSelector"
 import parse from "date-fns/parse"
+import endOfYear from "date-fns/end_of_year"
+import startOfYear from "date-fns/start_of_year"
 import { GET_INCOMES, TOTAL_MONTHLY_INCOME } from "../Queries"
 import { graphql, withApollo, compose } from "react-apollo"
 import gql from "graphql-tag"
 import { KnownTypeNamesRule } from "graphql"
+
+const deviceWidth = Dimensions.get("window").width
+const deviceHeight = Dimensions.get("window").height
 
 const styles = StyleSheet.create({
 	flex: {
 		display: "flex",
 		flexDirection: "row",
 		justifyContent: "center",
-		paddingTop: 5
+		borderBottomWidth: 1,
+		borderBottomColor: TERTIARY,
+		paddingBottom: 5,
+		marginRight: 20,
+		marginLeft: 20,
+		overflow: "hidden"
 	},
 	flex2: {
 		display: "flex",
-		justifyContent: "center",
+		justifyContent: "space-around",
 		alignItems: "center",
 		alignSelf: "center",
-		maxHeight: 150,
+		maxHeight: deviceHeight * 0.2,
 		flexWrap: "wrap"
 	}
 })
@@ -92,6 +104,7 @@ class PopupForm extends Component {
 				type: state.values.type !== value ? value : undefined
 			}
 		}))
+		//Keyboard.dismiss()
 	}
 
 	onChangeText = (key, value) => {
@@ -130,6 +143,7 @@ class PopupForm extends Component {
 				}
 			})
 		} catch (err) {
+			console.log("THERE WAS AN ERROR", err)
 			this.setState({
 				errors: {
 					name: "Something went wrong"
@@ -172,19 +186,28 @@ class PopupForm extends Component {
 				},
 				isDeleting: false
 			})
+			// insert error popup here
 			return
 		}
 
 		this.props.close()
 	}
 
+	componentDidMount() {
+		//this.keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", this._keyboardDidShow)
+		//this.keyboardDidHideListener = Keyboard.addListener("keyboardDidHide", this._keyboardDidHide)
+	}
+
 	componentWillUnmount() {
+		//this.keyboardDidShowListener.remove()
+		//this.keyboardDidHideListener.remove()
 		this.resetState()
 	}
 
 	render() {
-		console.log("This is the current state", this.state)
-		console.log("PROPS", this.props)
+		//console.log("This is the current state", this.state)
+		//console.log("PROPS", this.props)
+		//console.log("this is the year", endOfYear(parse(new Date())))
 		const {
 			errors,
 			checked,
@@ -199,77 +222,150 @@ class PopupForm extends Component {
 					Alert.alert("Modal has been closed.")
 				}}
 			>
-				<KeyboardAvoidingView style={{ width: "100%", height: "100%" }} behavior="padding">
-					<ScrollView>
-						<View style={{ paddingTop: 25, backgroundColor: SECONDARY_COLOR, height: "105%", overflow: "hidden" }}>
-							<View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end", padding: 10 }}>
-								<TouchableHighlight
-									onPress={() => {
-										this.props.close()
-										this.resetState()
+				<ScrollView showsVerticalScrollIndicator>
+					<View
+						style={{
+							backgroundColor: BACKGROUND,
+							height: deviceHeight,
+							width: deviceWidth,
+							paddingRight: 10,
+							paddingLeft: 10,
+							display: "flex",
+							flexDirection: "column",
+							justifyContent: "space-around",
+							overflow: "hidden"
+						}}
+					>
+						<View
+							style={{
+								display: "flex",
+								flexDirection: "row",
+								justifyContent: "flex-start",
+								paddingLeft: 15,
+								paddingTop: 20
+							}}
+						>
+							<TouchableHighlight
+								onPress={() => {
+									this.props.close()
+									this.resetState()
+								}}
+							>
+								<Icon name="close" type="font-awesome" color="white" size={30} />
+							</TouchableHighlight>
+						</View>
+
+						<View
+							style={{
+								display: "flex",
+								justifyContent: "center",
+								flexDirection: "row",
+								marginTop: deviceHeight * -0.05
+							}}
+						>
+							<Text style={{ color: "white", fontSize: 30 }}>Create An Income</Text>
+						</View>
+						<View style={styles.flex}>
+							<InputField
+								value={name}
+								name="name"
+								onChangeText={this.onChangeText}
+								width={320}
+								textColor="white"
+								isMoney={false}
+								isNumber={false}
+							/>
+						</View>
+						<View style={styles.flex}>
+							<InputField
+								width={320}
+								textColor="white"
+								value={this.props.activeIncome ? amount.toString() : amount}
+								name="amount"
+								onChangeText={this.onChangeText}
+								isMoney={amount == undefined || amount.length === 0 ? false : true}
+								isNumber
+							/>
+						</View>
+						<View style={styles.flex2}>
+							<IncomeTypeSelector
+								checked={checked}
+								type={type}
+								value="monthly"
+								onCheckType={this.onCheckType}
+								//onPress={Keyboard.dismiss}
+							/>
+							>
+							<IncomeTypeSelector checked={checked} type={type} value="biweekly" onCheckType={this.onCheckType} />
+							<IncomeTypeSelector checked={checked} type={type} value="weekly" onCheckType={this.onCheckType} />
+							<IncomeTypeSelector checked={checked} type={type} value="daily" onCheckType={this.onCheckType} />
+						</View>
+
+						<View style={{ height: deviceHeight * 0.3, marginTop: deviceHeight * 0.05 * -1 }}>
+							{/* {convert this to hide the date picker} */}
+
+							<View
+								style={{
+									width: "100%",
+									display: "flex",
+									justifyContent: "space-around",
+									flexDirection: "row",
+									paddingBottom: deviceHeight * 0.01
+								}}
+							>
+								<Text
+									style={{
+										color: "white",
+										fontSize: 20,
+										textAlign: "center"
 									}}
 								>
-									<Icon name="close" type="font-awesome" color="black" size={30} />
-								</TouchableHighlight>
+									Select Pay Date
+								</Text>
+								<Icon name="info-circle" type="font-awesome" color="white" size={20} />
 							</View>
 
-							<View style={{ display: "flex", justifyContent: "center", flexDirection: "row" }}>
-								<Text style={{ color: "white", fontSize: 30 }}>Create An Income</Text>
-							</View>
-							<View style={styles.flex}>
-								<TextField value={name} name="name" onChangeText={this.onChangeText} width={320} />
-							</View>
-							<View style={styles.flex}>
-								<InputField
-									width={320}
-									value={this.props.activeIncome ? amount.toString() : amount}
-									name="amount"
-									onChangeText={this.onChangeText}
-									isMoney={amount == undefined || amount.length === 0 ? false : true}
-								/>
-							</View>
-							<View style={styles.flex2}>
-								<IncomeTypeSelector checked={checked} type={type} value="monthly" onCheckType={this.onCheckType} />
-
-								<IncomeTypeSelector checked={checked} type={type} value="biweekly" onCheckType={this.onCheckType} />
-
-								<IncomeTypeSelector checked={checked} type={type} value="weekly" onCheckType={this.onCheckType} />
-
-								<IncomeTypeSelector checked={checked} type={type} value="daily" onCheckType={this.onCheckType} />
-							</View>
-
-							<View style={{ height: 160 }}>
-								{/* {convert this to hide the date picker} */}
-								<Text style={{ color: "white", fontSize: 20, textAlign: "center" }}>Select pay date</Text>
-								<DatePickerIOS date={parse(payDate)} onDateChange={this.setDate} mode="date" />
-							</View>
-							<View style={{ paddingTop: 5 }}>
-								{/* {change the color of this button} */}
+							<DatePickerIOS
+								date={parse(payDate)}
+								minimumDate={startOfYear(new Date())}
+								maximumDate={endOfYear(new Date())}
+								onDateChange={this.setDate}
+								mode="date"
+								style={{
+									backgroundColor: "rgba(255, 255, 255, 0.1)",
+									borderRadius: 25,
+									height: deviceHeight * 0.3,
+									borderColor: TERTIARY,
+									borderWidth: 1
+								}}
+							/>
+						</View>
+						<View>
+							{/* {change the color of this button} */}
+							<Button
+								title={this.props.activeIncome ? "Update" : "Submit"}
+								rounded
+								raised
+								buttonStyle={{ backgroundColor: TERTIARY }}
+								icon={{ type: "font-awesome", name: "thumbs-o-up" }}
+								onPress={this.submit}
+							/>
+							{this.props.activeIncome && (
 								<Button
-									title={this.props.activeIncome ? "Update" : "Submit"}
+									title="Delete"
 									rounded
 									raised
-									buttonStyle={{ backgroundColor: TERTIARY }}
-									icon={{ type: "font-awesome", name: "thumbs-o-up" }}
-									onPress={this.submit}
+									buttonStyle={{ backgroundColor: QUATERNARY, marginTop: 10 }}
+									icon={{
+										type: "font-awesome",
+										name: "trash-o"
+									}}
+									onPress={() => this.deleteIncome(this.state.values.id)}
 								/>
-								{this.props.activeIncome && (
-									<Button
-										title="Delete"
-										rounded
-										raised
-										buttonStyle={{ backgroundColor: QUATERNARY, marginTop: 10 }}
-										icon={{
-											type: "font-awesome",
-											name: "trash-o"
-										}}
-										onPress={() => this.deleteIncome(this.state.values.id)}
-									/>
-								)}
-							</View>
+							)}
 						</View>
-					</ScrollView>
-				</KeyboardAvoidingView>
+					</View>
+				</ScrollView>
 			</Modal>
 		)
 	}

@@ -64,10 +64,10 @@ class Summary extends React.Component {
 			<View style={{ height: "100%" }}>
 				<DefaultHeader showMenu={true} open={this.props.navigation.openDrawer} title="MoneyO" />
 
-				<LinearGradient colors={[BACKGROUND, TERTIARY]} style={{ height: deviceHeight, width: deviceWidth }}>
-					<View style={styles.summaryTextContainer}>
+				<LinearGradient colors={[BACKGROUND, "rgb(50,50,50)"]} style={{ height: deviceHeight, width: deviceWidth }}>
+					{/* <View style={styles.summaryTextContainer}>
 						<Text style={styles.summaryText}>Summary</Text>
-					</View>
+					</View> */}
 
 					<ScrollView
 						horizontal
@@ -81,7 +81,7 @@ class Summary extends React.Component {
 							query={TOTAL_MONTHLY_INCOME}
 							destinaiton="Income"
 							finType="Income"
-							title="Monthly Income"
+							title="Income"
 							destination={() => this.props.navigation.navigate("Income")}
 						/>
 						<Card
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
 		height: 2
 	},
 	bar: {
-		backgroundColor: BACKGROUND,
+		backgroundColor: TERTIARY,
 		height: 2,
 		position: "absolute",
 		left: 0,
