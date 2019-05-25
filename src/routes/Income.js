@@ -44,7 +44,7 @@ const SHORTHAND_INCOME_TYPES = {
 const MyIncomes = ({ onIncomeSelect }) => (
 	<Query query={GET_INCOMES}>
 		{({ loading, error, data }) => {
-			if (loading) return "Loading..."
+			if (loading) return <Text style={{ color: "white" }}>Loading</Text>
 			if (error) return `Error! ${error.message}`
 
 			return (
@@ -64,13 +64,22 @@ const MyIncomes = ({ onIncomeSelect }) => (
 								</Text>
 							}
 							titleContainerStyle={{ width: 300 }}
-							containerStyle={{ margin: 10, backgroundColor: "rgb(255, 255, 255)", borderRadius: 20 }}
+							containerStyle={{
+								margin: 10,
+								backgroundColor: "rgb(255, 255, 255)",
+								borderRadius: 10,
+								height: 100,
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center"
+							}}
 							key={income.id}
 							title={income.name}
+							titleStyle={{ fontSize: 20, marginBottom: 10 }}
 							subtitle={format(income.payDate, "MM/DD/YYYY")}
 							subtitleStyle={{ color: "rgba(200,200,200,0.8)", fontWeight: "900" }}
 							rightTitle={`$${income.amount}`}
-							rightTitleStyle={{ color: LIGHT_GREEN, fontWeight: "900" }}
+							rightTitleStyle={{ color: LIGHT_GREEN, fontWeight: "900", width: "50%" }}
 							onPress={event => onIncomeSelect(income, event)}
 						/>
 					))}

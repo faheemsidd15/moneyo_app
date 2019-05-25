@@ -10,12 +10,12 @@ export default class TextField extends React.PureComponent {
 		onChangeText(name, text)
 	}
 	render() {
-		const { value, name, isMoney, width } = this.props
+		const { value, name, isMoney, width, textColor, isNumber } = this.props
 		//console.log("rendering", name)
 		const placeholder = null
 		return (
 			<View style={{ display: "flex", flexDirection: "row" }}>
-				{isMoney ? <Icon type="foundation" name="dollar" size={30} color={"black"} /> : null}
+				{isMoney ? <Icon type="foundation" name="dollar" size={30} color={textColor || "black"} /> : null}
 				{"  "}
 				<TextInput
 					onChangeText={this.onChangeText}
@@ -24,11 +24,11 @@ export default class TextField extends React.PureComponent {
 						paddingLeft: 5,
 						width: width == undefined ? 200 : width,
 						fontSize: 20,
-						color: "black",
-						borderBottomWidth: 1
+						color: textColor || "black"
 					}}
-					placeholderTextColor="white"
-					keyboardType="numeric"
+					placeholderTextColor="rgba(255,255, 255, 0.5)"
+					keyboardType={isNumber ? "numeric" : "default"}
+					keyboardAppearance="dark"
 					placeholder={name}
 				/>
 			</View>

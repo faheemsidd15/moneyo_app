@@ -2,8 +2,11 @@ import React from "react"
 import { Header, Icon } from "react-native-elements"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 import { PRIMARY_COLOR } from "../AppTheme"
-import { Text, View } from "react-native"
+import { Text, View, Dimensions } from "react-native"
 import { Font } from "expo"
+
+const deviceWidth = Dimensions.get("window").width
+const deviceHeight = Dimensions.get("window").height
 
 class Heading extends React.Component {
 	constructor() {
@@ -35,12 +38,17 @@ export default class DefaultHeader extends React.PureComponent {
 	render() {
 		return (
 			<Header
-				innerContainerStyles={{ paddingTop: 10 }}
-				outerContainerStyles={{ height: 100 }}
+				innerContainerStyles={{
+					overflow: "hidden",
+					display: "flex",
+					justifyContent: "space-between",
+					alignItems: "center"
+				}}
+				outerContainerStyles={{ height: deviceHeight * 0.13, overflow: "hidden" }}
 				centerComponent={<Heading />}
 				backgroundColor={PRIMARY_COLOR}
 				rightComponent={
-					this.props.showMenu === true ? <Icon name="menu" onPress={this.props.open} color="white" /> : null
+					this.props.showMenu === true ? <Icon name="menu" onPress={this.props.open} color="white" size={30} /> : null
 				}
 				leftComponent={
 					this.props.showBackButton === true ? (

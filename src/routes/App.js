@@ -45,6 +45,10 @@ const AppDrawer = createDrawerNavigator(
   {
     contentComponent: CustomDrawerComponent,
     drawerPosition: "right",
+    drawerLockMode: "locked-closed",
+    navigationOptions: {
+      gesturesEnabled: false
+    },
     contentOptions: {
       activeTintColor: "white"
     }
