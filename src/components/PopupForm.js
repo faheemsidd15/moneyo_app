@@ -304,7 +304,19 @@ class PopupForm extends Component {
 						<View style={{ height: deviceHeight * 0.3, marginTop: deviceHeight * 0.05 * -1 }}>
 							{/* {convert this to hide the date picker} */}
 
+<<<<<<< HEAD
 							<View style={{ width: "100%", display: "flex", justifyContent: "space-around", flexDirection: "row" }}>
+=======
+							<View
+								style={{
+									width: "100%",
+									display: "flex",
+									justifyContent: "space-around",
+									flexDirection: "row",
+									paddingBottom: deviceHeight * 0.01
+								}}
+							>
+>>>>>>> c7845c56832256bf3d8dea2c17e401e960983c29
 								<Text
 									style={{
 										color: "white",
@@ -314,7 +326,11 @@ class PopupForm extends Component {
 								>
 									Select Pay Date
 								</Text>
+<<<<<<< HEAD
 								<Icon name="info" type="font-awesome" color="white" size={20} />
+=======
+								<Icon name="info-circle" type="font-awesome" color="white" size={20} />
+>>>>>>> c7845c56832256bf3d8dea2c17e401e960983c29
 							</View>
 
 							<DatePickerIOS
